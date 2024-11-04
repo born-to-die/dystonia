@@ -9,28 +9,11 @@ GameScene.backgroundRender = nil
 GameScene.wall = nil
 GameScene.walls = {}
 
-function newTimer(time,callback)
-  local expired = false
-  local timer = {}
-  
-  function timer.update(dt)
-       if time < 0 then
-             expired = true
-             callback()
-       end
-       time = time - dt         
-  end
 
-  function timer.isExpired()
-      return expired
-  end
-
-  return timer
-end
 
 function GameScene:load()
 
-  self.myTimer = newTimer(1 , function() 
+  self.myTimer = TIMER(1 , function() 
     print("Your timer is due!")
 
     local wx = math.random(10)
@@ -53,6 +36,7 @@ function GameScene:load()
   
   self.playerRender = PlayerRender:create()
   self.backgroundRender = BackgroundRender:create()
+  self.wallRender = WallRender:create()
 
   self.collisionChecker = CollisionChecker:create()
 
@@ -72,7 +56,7 @@ function GameScene:update()
   if not self.myTimer.isExpired() then 
     self.myTimer.update(deltaTime)
   else
-    self.myTimer = newTimer(1 , function() 
+    self.myTimer = TIMER(1 , function() 
       print("Your timer is due!")
   
       local wx = math.random(10)
@@ -83,7 +67,10 @@ function GameScene:update()
       end
     )
   end
-  
+
+  -- PLAYER CONTROL AND MOVEMENT
+  -- TODO Move to special class
+
   self.playerControl:update(self.player, deltaTime)
 
   self.player.x = self.player.x + self.player.vector:getSpeedX()
@@ -98,9 +85,7 @@ function GameScene:update()
       self.player.y = self.player.y + self.player.vector:getSpeedY()
       break
     end
-  end
-
-  
+  end  
 
   self.player.vector:reset()
 end
@@ -110,14 +95,5 @@ function GameScene:render()
   
     self.playerRender:render(self.player, self.px, self.py, self.scaleX, self.scaleY)
     
-    for i = 1, #self.walls do
-      love.graphics.draw(
-        self.walls[i].sprite,
-        self.walls[i].x,
-        self.walls[i].y,
-        0, 
-        self.scaleX, self.scaleY
-        -- self.walls[i].sprite:getWidth() / 2, self.walls[i].sprite:getHeight() / 2
-    )
-    end
+    self.wallRender:render(self.walls, self.scaleX, self.scaleY)
 end
