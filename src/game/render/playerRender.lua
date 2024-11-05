@@ -28,8 +28,8 @@ function PlayerRender:create()
     love.graphics.circle("fill", playerX, playerY, 2)
     love.graphics.setColor(1, 1, 1)
     
-    local playerWorldX = math.floor((player.x - px) / (16 * GFX_DEFAULT_SCALE_IMAGE))
-    local playerWorldY = math.floor((player.y - py) / (16 * GFX_DEFAULT_SCALE_IMAGE))
+    local playerWorldX = math.floor((player.x - px) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
+    local playerWorldY = math.floor((player.y - py) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
 
     local playerText = 
         "Player: " .. playerX .. ":" .. playerY .. 

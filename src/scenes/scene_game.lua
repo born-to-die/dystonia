@@ -10,12 +10,9 @@ GameScene.wall = nil
 GameScene.walls = {}
 
 
-
 function GameScene:load()
 
   self.myTimer = TIMER(1 , function() 
-    print("Your timer is due!")
-
     local wx = math.random(10)
     local wy = math.random(10)
 
@@ -24,13 +21,13 @@ function GameScene:load()
     end
   )
 
-  self.scaleX = 4 --love.graphics.getWidth() * GFX_DEFAULT_SCALE_IMAGE / 1280
-  self.scaleY = 4 --love.graphics:getHeight() * GFX_DEFAULT_SCALE_IMAGE / 720
+  self.scaleX = 1 --love.graphics.getWidth() * GFX_DEFAULT_SCALE_IMAGE / 1280
+  self.scaleY = 1 --love.graphics:getHeight() * GFX_DEFAULT_SCALE_IMAGE / 720
 
-  self.px = 16 / 2 * self.scaleX * 9
-  self.py = 16 / 2 * self.scaleY
+  self.px = GFX_TILE_SIZE_PX / 2 * self.scaleX * 9
+  self.py = GFX_TILE_SIZE_PX / 2 * self.scaleY
 
-  self.player = Player:create(1, 1, self.px + 32, self.py + 32, self.scaleX, self.scaleY)
+  self.player = Player:create(1, 1, self.px + 96, self.py + 96, self.scaleX, self.scaleY)
   
   self.playerControl = PlayerControl:create()
   

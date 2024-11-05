@@ -2,9 +2,11 @@ if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then
     require("lldebugger").start()
 end
 
-
-GFX_DEFAULT_SCALE_IMAGE = 4
+GFX_TILE_SIZE_PX = 64
+GFX_DEFAULT_SCALE_IMAGE = 1
 GFX_DEFAULT_IMAGE_FILTER = "nearest"
+GFX_RESOLUTION_W = 1280
+GFX_RESOLUTION_H = 720
 DEBUG_RENDER = true
 
 function Extended (child, parent)
@@ -29,7 +31,7 @@ gameScene:init()
 currentScene = gameScene
 
 function love.load()
-    love.window.setMode(1280, 720)
+    love.window.setMode(GFX_RESOLUTION_W, GFX_RESOLUTION_H)
 end
 
 function love.update()

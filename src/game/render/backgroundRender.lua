@@ -14,8 +14,8 @@ function BackgroundRender:create()
     
     for y = 0, 9, 1 do
         for x = 0, 9, 1 do
-            local px = x * 16 * scaleX + px
-            local py = y * 16 * scaleY + py
+            local px = x * GFX_TILE_SIZE_PX * scaleX + px
+            local py = y * GFX_TILE_SIZE_PX * scaleY + py
 
             love.graphics.draw(self.stoneFloorImage,
                 px, py,
