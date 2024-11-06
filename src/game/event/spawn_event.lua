@@ -4,7 +4,7 @@ function SpawnEvent:create()
 
     local obj = {}
     obj.timer = nil
-    obj.repeatTime = 10
+    obj.repeatTime = 2
     obj.tileChecker = TileChecker:create()
 
     -- @param Wall[] walls
@@ -12,7 +12,7 @@ function SpawnEvent:create()
     function obj.init(walls, player)
 
         obj.randomAction = function()
-            local r = math.random(3)
+            local r = math.random(5)
 
             if r == 1 then 
                 obj.deleteWall()

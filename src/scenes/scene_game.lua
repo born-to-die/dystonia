@@ -8,6 +8,7 @@ GameScene.playerRender = nil
 GameScene.backgroundRender = nil
 GameScene.wall = nil
 GameScene.walls = {}
+GameScene.items = {}
 GameScene.spawnEvent = nil
 
 GameScene.SX = 1 -- scale on X axis
@@ -28,6 +29,7 @@ function GameScene:load()
   
   self.playerControl = PlayerControl:create()
   
+  self.itemsRender = ItemsRender:create()
   self.playerRender = PlayerRender:create()
   self.backgroundRender = BackgroundRender:create()
   self.wallRender = WallRender:create()
@@ -44,6 +46,11 @@ function GameScene:load()
   table.insert(self.walls, Wall:create(6, 7, self.px, self.py, self.scaleX, self.scaleY))
   table.insert(self.walls, Wall:create(6, 5, self.px, self.py, self.scaleX, self.scaleY))
   table.insert(self.walls, Wall:create(4, 6, self.px, self.py, self.scaleX, self.scaleY))
+
+  -- ITEMS
+
+  local beacon = BeaconMapItem:create(1, 1)
+  table.insert(self.items, beacon)
 end
 
 function GameScene:update()
@@ -84,6 +91,8 @@ end
 function GameScene:render()
     self.backgroundRender:render(self.player, self.px, self.py, self.scaleX, self.scaleY)
   
+    self.itemsRender:render(self.items)
+
     self.playerRender:render(self.player, self.px, self.py, self.scaleX, self.scaleY)
     
     self.wallRender:render(self.walls, self.scaleX, self.scaleY)
