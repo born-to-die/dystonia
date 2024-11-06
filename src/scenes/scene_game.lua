@@ -8,18 +8,15 @@ GameScene.playerRender = nil
 GameScene.backgroundRender = nil
 GameScene.wall = nil
 GameScene.walls = {}
+GameScene.spawnEvent = nil
 
+GameScene.SX = 1 -- scale on X axis
+GameScene.SY = 1 -- scale on Y axis
+GameScene.PX = GFX_TILE_SIZE_PX / 2 * GameScene.SX * 9 -- padding on x axis
+GameScene.PY = GFX_TILE_SIZE_PX / 2 * GameScene.SY -- padding on x axis
+GameScene.DT = 0 -- delta time
 
 function GameScene:load()
-
-  self.myTimer = TIMER(1 , function() 
-    local wx = math.random(10)
-    local wy = math.random(10)
-
-    table.insert(self.walls, Wall:create(wx, wy, self.px, self.py, self.scaleX, self.scaleY))
-
-    end
-  )
 
   self.scaleX = 1 --love.graphics.getWidth() * GFX_DEFAULT_SCALE_IMAGE / 1280
   self.scaleY = 1 --love.graphics:getHeight() * GFX_DEFAULT_SCALE_IMAGE / 720
@@ -37,6 +34,9 @@ function GameScene:load()
 
   self.collisionChecker = CollisionChecker:create()
 
+  self.spawnEvent = SpawnEvent:create()
+  self.spawnEvent.init(self.walls, self.player)
+
   table.insert(self.walls, Wall:create(5, 5, self.px, self.py, self.scaleX, self.scaleY))
   table.insert(self.walls, Wall:create(6, 6, self.px, self.py, self.scaleX, self.scaleY))
   table.insert(self.walls, Wall:create(4, 7, self.px, self.py, self.scaleX, self.scaleY))
@@ -49,21 +49,7 @@ end
 function GameScene:update()
 
   local deltaTime = love.timer.getDelta()
-
-  if not self.myTimer.isExpired() then 
-    self.myTimer.update(deltaTime)
-  else
-    self.myTimer = TIMER(1 , function() 
-      print("Your timer is due!")
-  
-      local wx = math.random(10)
-      local wy = math.random(10)
-  
-      table.insert(self.walls, Wall:create(wx, wy, self.px, self.py, self.scaleX, self.scaleY))
-  
-      end
-    )
-  end
+  GameScene.DT = deltaTime
 
   -- PLAYER CONTROL AND MOVEMENT
   -- TODO Move to special class
@@ -82,9 +68,17 @@ function GameScene:update()
       self.player.y = self.player.y + self.player.vector:getSpeedY()
       break
     end
-  end  
+  end
+
+  self.player.worldX = math.floor((self.player.x - self.px) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
+  self.player.worldY = math.floor((self.player.y - self.py) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
 
   self.player.vector:reset()
+
+  -- EVENTS
+  -- TODO Move to special class
+
+  self.spawnEvent.update()
 end
 
 function GameScene:render()

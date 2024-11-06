@@ -18,6 +18,11 @@ function WallRender:create()
         sx, sy
     )
     end
+
+    if DEBUG_RENDER then
+      love.graphics.print("Walls: " .. #walls, 0, 45)
+    end
+
   end
   
   setmetatable(obj, self)

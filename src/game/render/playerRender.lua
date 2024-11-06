@@ -28,15 +28,13 @@ function PlayerRender:create()
     love.graphics.circle("fill", playerX, playerY, 2)
     love.graphics.setColor(1, 1, 1)
     
-    local playerWorldX = math.floor((player.x - px) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
-    local playerWorldY = math.floor((player.y - py) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
-
     local playerText = 
         "Player: " .. playerX .. ":" .. playerY .. 
-        " (" .. playerWorldX .. ":" .. playerWorldY .. ")"
+        " (" .. player.worldX .. ":" .. player.worldY .. ")"
 
     love.graphics.print(playerText, 0, 0)
     love.graphics.print("FPS: " .. love.timer.getFPS(), 0, 15)
+    love.graphics.print("RAM: " .. math.ceil(collectgarbage("count") / 1024) .. "MB", 0, 30)
   end
   
   setmetatable(obj, self)
