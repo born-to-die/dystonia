@@ -10,6 +10,7 @@ GameScene.wall = nil
 GameScene.walls = {}
 GameScene.items = {}
 GameScene.spawnEvent = nil
+GameScene.inventory = nil
 
 GameScene.SX = 1 -- scale on X axis
 GameScene.SY = 1 -- scale on Y axis
@@ -28,6 +29,7 @@ function GameScene:load()
   self.player = Player:create(1, 1, self.px + 96, self.py + 96, self.scaleX, self.scaleY)
   
   self.playerControl = PlayerControl:create()
+  self.inventory = Inventory:create()
   
   self.itemsRender = ItemsRender:create()
   self.playerRender = PlayerRender:create()
@@ -49,7 +51,7 @@ function GameScene:load()
 
   -- ITEMS
 
-  local beacon = BeaconMapItem:create(1, 1)
+  local beacon = BeaconMapItem:create(0, 0)
   table.insert(self.items, beacon)
 end
 
@@ -61,7 +63,7 @@ function GameScene:update()
   -- PLAYER CONTROL AND MOVEMENT
   -- TODO Move to special class
 
-  self.playerControl:update(self.player, deltaTime)
+  self.playerControl:update(self.player, deltaTime, self.items, self.inventory)
 
   self.player.x = self.player.x + self.player.vector:getSpeedX()
   self.player.y = self.player.y + self.player.vector:getSpeedY()

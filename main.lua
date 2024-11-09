@@ -9,6 +9,12 @@ GFX_RESOLUTION_W = 1280
 GFX_RESOLUTION_H = 720
 DEBUG_RENDER = true
 
+PC_UP = 'w'
+PC_RIGHT = 'd'
+PC_LEFT = 'a'
+PC_DOWN = 's'
+PC_ACTION = 'space'
+
 function Extended (child, parent)
     setmetatable(child,{__index = parent})
 end
@@ -16,6 +22,7 @@ end
 dofile("src/entities/vector.lua")
 dofile("src/game/control/playerControl.lua")
 dofile("src/game/event/spawn_event.lua")
+dofile("src/game/inventory/inventory.lua")
 dofile("src/game/inventory/inventory_item.lua")
 dofile("src/game/inventory/beacon_item.lua")
 dofile("src/game/objects/items/beacon_map_item.lua")

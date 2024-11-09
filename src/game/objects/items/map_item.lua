@@ -10,8 +10,14 @@ function MapItem:create(worldX, worldY)
 
     obj.worldX = worldX
     obj.worldY = worldY
+    obj.item = nil
 
     -- Methods
+
+    -- @return table (InventoryItem)
+    function obj:getItem()
+        return obj.item
+    end
 
     -- Magic
 
