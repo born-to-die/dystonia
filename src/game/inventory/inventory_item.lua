@@ -7,8 +7,13 @@ function InventoryItem:create()
     -- Properties
 
     obj.name = nil
+    obj.sprite = nil
 
     -- Methods
+
+    function obj:getSprite()
+        return obj.sprite
+    end
 
     -- Magic
 

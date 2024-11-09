@@ -35,6 +35,7 @@ function GameScene:load()
   self.playerRender = PlayerRender:create()
   self.backgroundRender = BackgroundRender:create()
   self.wallRender = WallRender:create()
+  self.inventoryRender = InventoryRender:create()
 
   self.collisionChecker = CollisionChecker:create()
 
@@ -50,9 +51,9 @@ function GameScene:load()
   table.insert(self.walls, Wall:create(4, 6, self.px, self.py, self.scaleX, self.scaleY))
 
   -- ITEMS
-
-  local beacon = BeaconMapItem:create(0, 0)
-  table.insert(self.items, beacon)
+  table.insert(self.items, BeaconMapItem:create(0, 0))
+  table.insert(self.items, BeaconMapItem:create(2, 2))
+  table.insert(self.items, BeaconMapItem:create(3, 4))
 end
 
 function GameScene:update()
@@ -98,4 +99,6 @@ function GameScene:render()
     self.playerRender:render(self.player, self.px, self.py, self.scaleX, self.scaleY)
     
     self.wallRender:render(self.walls, self.scaleX, self.scaleY)
+
+    self.inventoryRender:render(self.inventory)
 end

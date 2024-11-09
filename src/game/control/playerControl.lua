@@ -50,7 +50,8 @@ function PlayerControl:create()
         for i = 1, #items, 1 do
           if items[i].worldX == player.worldX and items[i].worldY == player.worldY then
             inventory:add(items[i]:getItem())
-            table.remove(items, 1)
+            table.remove(items, i)
+            break
           end
         end
       end

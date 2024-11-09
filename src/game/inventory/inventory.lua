@@ -10,6 +10,16 @@ function Inventory:create()
 
     -- Methods
 
+    -- @return table - InventoryItem's array
+    function obj:getAll()
+        return obj.items
+    end
+
+    -- @return int
+    function obj:count()
+        return #obj.items
+    end
+
     -- @param InventoryItem item
     function obj:add(item)
         table.insert(obj.items, item)

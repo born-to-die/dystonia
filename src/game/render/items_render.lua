@@ -10,8 +10,8 @@ function ItemsRender:create()
     for i = 1, #mapItems do
       love.graphics.draw(
         mapItems[i].sprite,
-        mapItems[i].worldY * GameScene.SX + GameScene.PX,
-        mapItems[i].worldY * GameScene.SY + GameScene.PY,
+        mapItems[i].worldX * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX,
+        mapItems[i].worldY * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY,
         0,
         GameScene.SX, GameScene.SY
     )
