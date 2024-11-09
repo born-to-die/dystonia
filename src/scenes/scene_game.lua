@@ -1,3 +1,5 @@
+---@class GameScene
+---@field objectsRender ObjectsRender
 GameScene = {};
 
 Extended(GameScene, Scene)
@@ -6,9 +8,11 @@ GameScene.player = nil
 GameScene.playerControl = nil
 GameScene.playerRender = nil
 GameScene.backgroundRender = nil
+GameScene.objectsRender = nil
 GameScene.wall = nil
 GameScene.walls = {}
 GameScene.items = {}
+GameScene.objects = {}
 GameScene.spawnEvent = nil
 GameScene.inventory = nil
 
@@ -36,6 +40,7 @@ function GameScene:load()
   self.backgroundRender = BackgroundRender:create()
   self.wallRender = WallRender:create()
   self.inventoryRender = InventoryRender:create()
+  self.objectsRender = ObjectsRender:create()
 
   self.collisionChecker = CollisionChecker:create()
 
@@ -54,6 +59,9 @@ function GameScene:load()
   table.insert(self.items, BeaconMapItem:create(0, 0))
   table.insert(self.items, BeaconMapItem:create(2, 2))
   table.insert(self.items, BeaconMapItem:create(3, 4))
+
+  -- OBJECTS
+  table.insert(self.objects, BeaconObject:create(1, 1))
 end
 
 function GameScene:update()
@@ -99,6 +107,8 @@ function GameScene:render()
     self.playerRender:render(self.player, self.px, self.py, self.scaleX, self.scaleY)
     
     self.wallRender:render(self.walls, self.scaleX, self.scaleY)
+
+    self.objectsRender:render(self.objects)
 
     self.inventoryRender:render(self.inventory)
 end
