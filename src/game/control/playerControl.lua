@@ -10,11 +10,13 @@ function PlayerControl:create()
     obj.keyUpPressed = false
     obj.keyEscapePressed = false
     obj.keySpacePressed = false
+    obj.rightArrowPressed = false
+    obj.leftArrowPressed = false
     
     -- @param table player - Player
     -- @param float deltaTime
     -- @param table items - Item[]
-    -- @param table inventory - Inventory
+    ---@param inventory Inventory
     function obj:update(player, deltaTime, items, inventory)
     
       -- Movement
@@ -44,17 +46,28 @@ function PlayerControl:create()
       if obj.keyUpPressed == true then
         player.vector:setY(-1, 150 * deltaTime)
       end
+  end
 
-      if obj.keySpacePressed == true then
-        
-        for i = 1, #items, 1 do
-          if items[i].worldX == player.worldX and items[i].worldY == player.worldY then
-            inventory:add(items[i]:getItem())
-            table.remove(items, i)
-            break
-          end
+  ---@param key string
+  ---@param player Player
+  ---@param inventory Inventory
+  ---@param items MapItem[]
+  function obj:keypressed(key, player, inventory, items)
+    if key == "right" then
+      inventory.selectedSlotNumber = inventory.selectedSlotNumber + 1
+    elseif key == "left" then
+      inventory.selectedSlotNumber = inventory.selectedSlotNumber - 1
+    elseif key == "up" then
+      table.remove(inventory.items, inventory.selectedSlotNumber)
+    elseif key == "space" then
+      for i = 1, #items, 1 do
+        if items[i].worldX == player.worldX and items[i].worldY == player.worldY then
+          inventory:add(items[i]:getItem())
+          table.remove(items, i)
+          break
         end
       end
+    end
   end
   
   setmetatable(obj, self)

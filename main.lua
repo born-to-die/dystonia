@@ -60,3 +60,7 @@ end
 function love.draw()
     currentScene:render()
 end
+
+function love.keypressed(key, scancode, isrepeat)
+    currentScene:keypressed(key)
+end

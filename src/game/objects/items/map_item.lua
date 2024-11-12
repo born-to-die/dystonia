@@ -1,3 +1,7 @@
+---@class MapItem
+---@field worldX number
+---@field worldY number
+---@field getItem fun():InventoryItem
 MapItem = {}
 
 -- @param int worldX

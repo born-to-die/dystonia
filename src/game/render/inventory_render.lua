@@ -8,7 +8,7 @@ function InventoryRender:create()
 
   -- Methods
 
-  -- @param table inventory (Inventory)
+  ---@param inventory Inventory
   function obj:render(inventory)
     
     local items = inventory.getAll()
@@ -22,6 +22,14 @@ function InventoryRender:create()
         GameScene.SX, GameScene.SY
     )
     end
+
+    love.graphics.rectangle(
+      "line",
+      832 + GFX_TILE_SIZE_PX + inventory.selectedSlotNumber * GFX_TILE_SIZE_PX,
+      64,
+      64,
+      64
+    )
   end
   
   setmetatable(obj, self)

@@ -43,3 +43,8 @@ function Scene:render()
    -- need init in childs
    print("Method 'render' of 'Scene' called")
 end
+
+function Scene:keypressed()
+    -- need init in childs
+   print("Method 'keypressed' of 'Scene' called")
+end

@@ -1,3 +1,4 @@
+---@class InventoryItem
 InventoryItem = {}
 
 function InventoryItem:create()

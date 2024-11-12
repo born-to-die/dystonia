@@ -112,3 +112,7 @@ function GameScene:render()
 
     self.inventoryRender:render(self.inventory)
 end
+
+function GameScene:keypressed(key)
+  self.playerControl:keypressed(key, self.player, self.inventory, self.items)
+end
