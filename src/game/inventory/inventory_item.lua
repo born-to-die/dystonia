@@ -1,4 +1,8 @@
 ---@class InventoryItem
+---@field name string
+---@field sprite table
+---@field mapItem MapItem
+---@field getMapItem fun(worldX:number, worldY:number): MapItem|nil
 InventoryItem = {}
 
 function InventoryItem:create()
@@ -14,6 +18,10 @@ function InventoryItem:create()
 
     function obj:getSprite()
         return obj.sprite
+    end
+
+    function obj:getMapItem(worldX, worldY)
+        return nil
     end
 
     -- Magic

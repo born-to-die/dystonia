@@ -12,6 +12,11 @@ function BeaconItem:create()
 
     -- Methods
 
+    ---@overload fun(worldX:number, worldY:number): nil
+    function obj:getMapItem(worldX, worldY)
+        return BeaconMapItem:create(worldX, worldY)
+    end
+
     -- Magic
 
     setmetatable(obj, self)

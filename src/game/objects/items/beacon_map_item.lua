@@ -1,3 +1,6 @@
+---@class BeaconMapItem
+---@field worldX number
+---@field worldY number
 BeaconMapItem = {};
 
 -- @param int worldX

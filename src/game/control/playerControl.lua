@@ -67,6 +67,9 @@ function PlayerControl:create()
           break
         end
       end
+    elseif key == "down" then
+      table.insert(items, inventory.items[inventory.selectedSlotNumber]:getMapItem(player.worldX, player.worldY))
+      table.remove(inventory.items, inventory.selectedSlotNumber)
     end
   end
   
