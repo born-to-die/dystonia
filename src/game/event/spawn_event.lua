@@ -1,15 +1,19 @@
+---@class SpawnEvent
+---@field update fun()
 SpawnEvent = {}
 
 function SpawnEvent:create()
 
     local obj = {}
     obj.timer = nil
-    obj.repeatTime = 2
+    obj.repeatTime = 1
     obj.tileChecker = TileChecker:create()
+    obj.mathService = MathService:create()
 
-    -- @param Wall[] walls
-    -- @param Player player
-    function obj.init(walls, player)
+    ---@param walls Wall[]
+    ---@param player Player
+    ---@param objects Object[]
+    function obj.init(walls, player, objects)
 
         obj.randomAction = function()
             local r = math.random(5)
@@ -33,8 +37,18 @@ function SpawnEvent:create()
 
                 local isFreeFromWalls = obj.tileChecker:isFreeTileForList(wx, wy, walls)
                 local isFreeFromPlayer = obj.tileChecker:isFreeTileForObject(wx, wy, player)
+                local isNoCloseToObjects = true
+                
+                for i = 1, #objects do
+                    local dw = obj.mathService:distanceTiles(wx, wy, objects[i].worldX, objects[i].worldY)
 
-                if isFreeFromWalls and isFreeFromPlayer then
+                    if dw < 3 then
+                        isNoCloseToObjects = false
+                    end
+                end
+
+
+                if isFreeFromWalls and isFreeFromPlayer and isNoCloseToObjects then
                     table.insert(walls, Wall:create(wx, wy, GameScene.PX, GameScene.PY, GameScene.SX, GameScene.SY))
                     break
                 end

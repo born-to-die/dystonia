@@ -1,3 +1,6 @@
+---@class Wall
+---@field worldX number
+---@field worldY number
 Wall = {}
 
 function Wall:create(worldX, worldY, px, py, scaleX, scaleY)
