@@ -52,12 +52,14 @@ function PlayerControl:create()
   ---@param player Player
   ---@param inventory Inventory
   ---@param items MapItem[]
-  function obj:keypressed(key, player, inventory, items)
+  ---@param objects Object[]
+  function obj:keypressed(key, player, inventory, items, objects)
     if key == "right" then
       inventory.selectedSlotNumber = inventory.selectedSlotNumber + 1
     elseif key == "left" then
       inventory.selectedSlotNumber = inventory.selectedSlotNumber - 1
     elseif key == "up" then
+      table.insert(objects, inventory.items[inventory.selectedSlotNumber]:getObject(player.worldX, player.worldY))
       table.remove(inventory.items, inventory.selectedSlotNumber)
     elseif key == "space" then
       for i = 1, #items, 1 do

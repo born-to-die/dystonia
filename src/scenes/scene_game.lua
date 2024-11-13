@@ -114,5 +114,5 @@ function GameScene:render()
 end
 
 function GameScene:keypressed(key)
-  self.playerControl:keypressed(key, self.player, self.inventory, self.items)
+  self.playerControl:keypressed(key, self.player, self.inventory, self.items, self.objects)
 end
