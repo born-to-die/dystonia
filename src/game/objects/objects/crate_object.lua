@@ -17,7 +17,11 @@ function CrateObject:create(worldX, worldY)
 
     ---@param items MapItem[]
     function obj:activate(items)
-        table.insert(items, BeaconMapItem:create(obj.worldX, obj.worldY))
+        local r = math.random(2)
+
+        if r == 1 then
+            table.insert(items, BeaconMapItem:create(obj.worldX, obj.worldY))
+        end
     end
 
     -- Magic

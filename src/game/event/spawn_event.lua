@@ -16,11 +16,11 @@ function SpawnEvent:create()
     function obj.init(walls, player, objects)
 
         obj.randomAction = function()
-            local r = math.random(40)
+            local r = math.random(20)
 
             if r >= 1 and r <= 4 then
                 obj.deleteWall()
-            elseif r == 3 then
+            elseif r == 5 then
                 obj.createCrate()
             else
                 obj.createWall()
