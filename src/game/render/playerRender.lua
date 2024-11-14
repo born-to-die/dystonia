@@ -4,9 +4,7 @@ function PlayerRender:create()
   
   local obj = {}
   
-  -- player is Player
-  -- px, py is offsets
-  -- scaleX, scaleY is scale of window
+  ---@param player Player
   function obj:render(player, px, py, scaleX, scaleY)
     
     love.graphics.draw(
@@ -17,6 +15,10 @@ function PlayerRender:create()
         scaleX * player.directionX, scaleY,
         player.sprite:getWidth() / 2, player.sprite:getHeight() / 2
     )
+
+    love.graphics.setFont(GameScene.FONT_MEDIUM)
+    love.graphics.print("FOOD: " .. player.foodSaturation .. "%", 64, 96)
+    love.graphics.setFont(GameScene.FONT_DEFAULT)
     
     if DEBUG_RENDER == true then
       obj:debugRender(player, player.x, player.y, px, py)

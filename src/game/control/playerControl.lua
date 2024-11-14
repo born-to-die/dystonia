@@ -61,7 +61,13 @@ function PlayerControl:create()
         return
       end
 
-      table.insert(objects, inventory.items[inventory.selectedSlotNumber]:getObject(player.worldX, player.worldY))
+      if activeSlot.type == InventoryItemType.OBJECT then
+        table.insert(objects, inventory.items[inventory.selectedSlotNumber]:getObject(player.worldX, player.worldY))
+      elseif activeSlot.type == InventoryItemType.USE then
+        activeSlot:use(player)
+      end
+
+      
       table.remove(inventory.items, inventory.selectedSlotNumber)
 
 

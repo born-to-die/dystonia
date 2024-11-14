@@ -1,9 +1,11 @@
 ---@class InventoryItem
 ---@field name string
 ---@field sprite table
+---@field type number|nil
 ---@field mapItem MapItem
----@field getMapItem fun(worldX:number, worldY:number): MapItem|nil
----@field getObject fun(worldX:number, worldY:number): Object|nil
+---@field getMapItem fun(worldX:number, worldY:number): MapItem|nil For drop to map
+---@field getObject fun(self, worldX:number, worldY:number): Object|nil For spawn on map
+---@field use fun(self, player: Player)
 InventoryItem = {}
 
 function InventoryItem:create()
@@ -14,6 +16,7 @@ function InventoryItem:create()
 
     obj.name = nil
     obj.sprite = nil
+    obj.type = nil
 
     -- Methods
 
@@ -27,6 +30,9 @@ function InventoryItem:create()
 
     function obj:getObject(worldX, worldY)
         return nil
+    end
+
+    function obj:use(player)
     end
 
     -- Magic

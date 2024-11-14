@@ -29,10 +29,13 @@ GameScene.MAP_LEFT_BORDER = GameScene.PX + GFX_TILE_SIZE_PX / 2
 GameScene.MAP_TOP_BORDER = GameScene.PY + GFX_TILE_SIZE_PX / 2
 GameScene.MAP_BOTTOM_BORDER = GameScene.PY + 10 * GFX_TILE_SIZE_PX - GFX_TILE_SIZE_PX / 2
 
+GameScene.FONT_DEFAULT = love.graphics.newFont(12)
+GameScene.FONT_MEDIUM = love.graphics.newFont(24)
 
 function GameScene:load()
 
   math.randomseed(os.time())
+  love.graphics.setFont(GameScene.FONT_DEFAULT)
 
   self.scaleX = 1 --love.graphics.getWidth() * GFX_DEFAULT_SCALE_IMAGE / 1280
   self.scaleY = 1 --love.graphics:getHeight() * GFX_DEFAULT_SCALE_IMAGE / 720

@@ -18,6 +18,17 @@ function SpawnEvent:create()
         obj.randomAction = function()
             local r = math.random(20)
 
+            player.foodSaturation = player.foodSaturation - 2
+
+            if player.foodSaturation < 0 then
+                local errortitle = "Вы погибли!"
+                local errormessage = "Досадно, но вы умерли от голода"
+
+                love.window.showMessageBox(errortitle, errormessage, "info")
+    
+                love.event.quit()
+            end
+
             if r >= 1 and r <= 4 then
                 obj.deleteWall()
             elseif r == 5 then
