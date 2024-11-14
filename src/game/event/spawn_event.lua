@@ -18,8 +18,10 @@ function SpawnEvent:create()
         obj.randomAction = function()
             local r = math.random(5)
 
-            if r == 1 then 
+            if r == 1 or r == 2 then
                 obj.deleteWall()
+            elseif r == 3 then
+                obj.createCrate()
             else
                 obj.createWall()
             end
@@ -50,6 +52,21 @@ function SpawnEvent:create()
 
                 if isFreeFromWalls and isFreeFromPlayer and isNoCloseToObjects then
                     table.insert(walls, Wall:create(wx, wy, GameScene.PX, GameScene.PY, GameScene.SX, GameScene.SY))
+                    break
+                end
+            end
+        end
+
+        obj.createCrate = function()
+            for i = 1, 100, 1 do
+                local wx = math.random(10) - 1
+                local wy = math.random(10) - 1
+
+                local isFreeFromWalls = obj.tileChecker:isFreeTileForList(wx, wy, walls)
+                local isFreeFromPlayer = obj.tileChecker:isFreeTileForObject(wx, wy, player)
+
+                if isFreeFromWalls and isFreeFromPlayer then
+                    table.insert(objects, CrateObject:create(wx, wy))
                     break
                 end
             end

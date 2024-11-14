@@ -24,6 +24,8 @@ GameScene.DT = 0 -- delta time
 
 function GameScene:load()
 
+  math.randomseed(os.time())
+
   self.scaleX = 1 --love.graphics.getWidth() * GFX_DEFAULT_SCALE_IMAGE / 1280
   self.scaleY = 1 --love.graphics:getHeight() * GFX_DEFAULT_SCALE_IMAGE / 720
 
@@ -45,7 +47,7 @@ function GameScene:load()
   self.collisionChecker = CollisionChecker:create()
 
   self.spawnEvent = SpawnEvent:create()
-  self.spawnEvent.init(self.walls, self.player)
+  self.spawnEvent.init(self.walls, self.player, self.objects)
 
   table.insert(self.walls, Wall:create(5, 5, self.px, self.py, self.scaleX, self.scaleY))
   table.insert(self.walls, Wall:create(6, 6, self.px, self.py, self.scaleX, self.scaleY))
@@ -104,15 +106,23 @@ function GameScene:render()
   
     self.itemsRender:render(self.items)
 
+    self.objectsRender:render(self.objects)
+
     self.playerRender:render(self.player, self.px, self.py, self.scaleX, self.scaleY)
     
     self.wallRender:render(self.walls, self.scaleX, self.scaleY)
-
-    self.objectsRender:render(self.objects)
 
     self.inventoryRender:render(self.inventory)
 end
 
 function GameScene:keypressed(key)
   self.playerControl:keypressed(key, self.player, self.inventory, self.items, self.objects)
+end
+
+function love.wheelmoved(x, y)
+  if y > 0 then
+      print("Mouse wheel moved up " .. y)
+  elseif y < 0 then
+      print("Mouse wheel moved down" .. y)
+  end
 end

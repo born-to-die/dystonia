@@ -54,13 +54,18 @@ function PlayerControl:create()
   ---@param items MapItem[]
   ---@param objects Object[]
   function obj:keypressed(key, player, inventory, items, objects)
+
     if key == "right" then
       inventory.selectedSlotNumber = inventory.selectedSlotNumber + 1
     elseif key == "left" then
       inventory.selectedSlotNumber = inventory.selectedSlotNumber - 1
+
+
     elseif key == "up" then
       table.insert(objects, inventory.items[inventory.selectedSlotNumber]:getObject(player.worldX, player.worldY))
       table.remove(inventory.items, inventory.selectedSlotNumber)
+
+
     elseif key == "space" then
       for i = 1, #items, 1 do
         if items[i].worldX == player.worldX and items[i].worldY == player.worldY then
@@ -69,9 +74,30 @@ function PlayerControl:create()
           break
         end
       end
+
+
     elseif key == "down" then
       table.insert(items, inventory.items[inventory.selectedSlotNumber]:getMapItem(player.worldX, player.worldY))
       table.remove(inventory.items, inventory.selectedSlotNumber)
+    
+
+    elseif key == "return" then
+      for i = 1, #objects do
+
+        local object = objects[i]
+
+        if (object == nil) then
+          break
+        end
+
+        local isPlayerActivity = object.type == 'player-activity'
+        local isCloseToPlayer = object.worldX == player.worldX and object.worldY == player.worldY
+
+        if isPlayerActivity and isCloseToPlayer then
+          object:activate(items)
+          table.remove(objects, i)
+        end
+      end
     end
   end
   
