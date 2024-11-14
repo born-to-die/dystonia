@@ -1,5 +1,7 @@
 ---@class GameScene
 ---@field objectsRender ObjectsRender
+---@field MAP_RIGHT_BORDER number
+---@field MAP_LEFT_BORDER number
 GameScene = {};
 
 Extended(GameScene, Scene)
@@ -21,6 +23,12 @@ GameScene.SY = 1 -- scale on Y axis
 GameScene.PX = GFX_TILE_SIZE_PX / 2 * GameScene.SX * 9 -- padding on x axis
 GameScene.PY = GFX_TILE_SIZE_PX / 2 * GameScene.SY -- padding on x axis
 GameScene.DT = 0 -- delta time
+
+GameScene.MAP_RIGHT_BORDER = GameScene.PX + 10 * GFX_TILE_SIZE_PX - GFX_TILE_SIZE_PX / 2
+GameScene.MAP_LEFT_BORDER = GameScene.PX + GFX_TILE_SIZE_PX / 2
+GameScene.MAP_TOP_BORDER = GameScene.PY + GFX_TILE_SIZE_PX / 2
+GameScene.MAP_BOTTOM_BORDER = GameScene.PY + 10 * GFX_TILE_SIZE_PX - GFX_TILE_SIZE_PX / 2
+
 
 function GameScene:load()
 
@@ -119,10 +127,6 @@ function GameScene:keypressed(key)
   self.playerControl:keypressed(key, self.player, self.inventory, self.items, self.objects)
 end
 
-function love.wheelmoved(x, y)
-  if y > 0 then
-      print("Mouse wheel moved up " .. y)
-  elseif y < 0 then
-      print("Mouse wheel moved down" .. y)
-  end
+function GameScene:wheelmoved(x, y)
+  self.playerControl:wheelmoved(x, y, self.inventory)
 end

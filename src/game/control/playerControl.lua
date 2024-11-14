@@ -13,9 +13,7 @@ function PlayerControl:create()
     obj.rightArrowPressed = false
     obj.leftArrowPressed = false
     
-    -- @param table player - Player
-    -- @param float deltaTime
-    -- @param table items - Item[]
+    ---@param player Player
     ---@param inventory Inventory
     function obj:update(player, deltaTime, items, inventory)
     
@@ -29,21 +27,21 @@ function PlayerControl:create()
       obj.keySpacePressed = love.keyboard.isDown(PC_ACTION)
       obj.keyEscapePressed = love.keyboard.isDown("escape")
     
-      if obj.keyRightPressed == true then
+      if obj.keyRightPressed == true and player.x < GameScene.MAP_RIGHT_BORDER then
         player.directionX = 1
         player.vector:setX(1, 150 * deltaTime)
       end
       
-      if obj.keyDownPressed == true then
+      if obj.keyDownPressed == true and player.y < GameScene.MAP_BOTTOM_BORDER then
         player.vector:setY(1, 150 * deltaTime)
       end
 
-      if obj.keyLeftPressed == true then
+      if obj.keyLeftPressed == true and player.x > GameScene.MAP_LEFT_BORDER then
           player.directionX = -1
           player.vector:setX(-1, 150 * deltaTime)
       end
 
-      if obj.keyUpPressed == true then
+      if obj.keyUpPressed == true and player.y > GameScene.MAP_TOP_BORDER then
         player.vector:setY(-1, 150 * deltaTime)
       end
   end
@@ -55,13 +53,14 @@ function PlayerControl:create()
   ---@param objects Object[]
   function obj:keypressed(key, player, inventory, items, objects)
 
-    if key == "right" then
-      inventory.selectedSlotNumber = inventory.selectedSlotNumber + 1
-    elseif key == "left" then
-      inventory.selectedSlotNumber = inventory.selectedSlotNumber - 1
+    if key == "left" then
 
+      local activeSlot = inventory.items[inventory.selectedSlotNumber]
 
-    elseif key == "up" then
+      if activeSlot == nil then
+        return
+      end
+
       table.insert(objects, inventory.items[inventory.selectedSlotNumber]:getObject(player.worldX, player.worldY))
       table.remove(inventory.items, inventory.selectedSlotNumber)
 
@@ -69,19 +68,25 @@ function PlayerControl:create()
     elseif key == "space" then
       for i = 1, #items, 1 do
         if items[i].worldX == player.worldX and items[i].worldY == player.worldY then
-          inventory:add(items[i]:getItem())
-          table.remove(items, i)
+          local isAdded = inventory:add(items[i]:getItem())
+          if isAdded then
+            table.remove(items, i)
+          end
           break
         end
       end
 
+    elseif key == 'up' and inventory.selectedSlotNumber > 1 then
+      inventory.selectedSlotNumber = inventory.selectedSlotNumber - 1
+    elseif key == 'down' and inventory.selectedSlotNumber < 5 then
+      inventory.selectedSlotNumber = inventory.selectedSlotNumber + 1
 
-    elseif key == "down" then
+    elseif key == "x" then
       table.insert(items, inventory.items[inventory.selectedSlotNumber]:getMapItem(player.worldX, player.worldY))
       table.remove(inventory.items, inventory.selectedSlotNumber)
     
 
-    elseif key == "return" then
+    elseif key == "e" then
       for i = 1, #objects do
 
         local object = objects[i]
@@ -98,6 +103,17 @@ function PlayerControl:create()
           table.remove(objects, i)
         end
       end
+    end
+  end
+
+  ---@param x number
+  ---@param y number
+  ---@param inventory Inventory
+  function obj:wheelmoved(x, y, inventory)
+    if y > 0 and inventory.selectedSlotNumber > 1 then
+      inventory.selectedSlotNumber = inventory.selectedSlotNumber - 1
+    elseif y < 0 and inventory.selectedSlotNumber < 5 then
+      inventory.selectedSlotNumber = inventory.selectedSlotNumber + 1
     end
   end
   

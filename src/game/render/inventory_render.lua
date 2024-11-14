@@ -16,8 +16,8 @@ function InventoryRender:create()
     for i = 1, inventory:count() do
       love.graphics.draw(
         items[i]:getSprite(),
-        896 + GFX_TILE_SIZE_PX * i,
-        64,
+        960,
+        64 + GFX_TILE_SIZE_PX * i,
         0,
         GameScene.SX, GameScene.SY
     )
@@ -25,8 +25,8 @@ function InventoryRender:create()
 
     love.graphics.rectangle(
       "line",
-      832 + GFX_TILE_SIZE_PX + inventory.selectedSlotNumber * GFX_TILE_SIZE_PX,
-      64,
+      960,
+      GFX_TILE_SIZE_PX + inventory.selectedSlotNumber * GFX_TILE_SIZE_PX,
       64,
       64
     )

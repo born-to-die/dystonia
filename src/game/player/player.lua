@@ -1,6 +1,8 @@
 ---@class Player
 ---@field worldX number
 ---@field worldY number
+---@field x number
+---@field y number
 Player = {}
 
 function Player:create(worldX, worldY, px, py, scaleX, scaleY)

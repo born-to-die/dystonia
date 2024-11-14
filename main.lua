@@ -66,3 +66,7 @@ end
 function love.keypressed(key, scancode, isrepeat)
     currentScene:keypressed(key)
 end
+
+function love.wheelmoved(x, y)
+    currentScene:wheelmoved(x, y)
+end

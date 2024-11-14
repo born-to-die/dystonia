@@ -48,3 +48,8 @@ function Scene:keypressed()
     -- need init in childs
    print("Method 'keypressed' of 'Scene' called")
 end
+
+function Scene:wheelmoved()
+    -- need init in childs
+   print("Method 'wheelmoved' of 'Scene' called")
+end

@@ -16,9 +16,9 @@ function SpawnEvent:create()
     function obj.init(walls, player, objects)
 
         obj.randomAction = function()
-            local r = math.random(5)
+            local r = math.random(40)
 
-            if r == 1 or r == 2 then
+            if r >= 1 and r <= 4 then
                 obj.deleteWall()
             elseif r == 3 then
                 obj.createCrate()
@@ -44,7 +44,7 @@ function SpawnEvent:create()
                 for i = 1, #objects do
                     local dw = obj.mathService:distanceTiles(wx, wy, objects[i].worldX, objects[i].worldY)
 
-                    if dw < 3 then
+                    if dw < 3.2 then
                         isNoCloseToObjects = false
                     end
                 end

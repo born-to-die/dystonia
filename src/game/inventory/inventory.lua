@@ -1,9 +1,10 @@
 ---@class Inventory
 ---@field items InventoryItem[]
 ---@field selectedSlotNumber number
+---@field capacity number
 ---@field getAll fun():InventoryItem[]
 ---@field count fun():number
----@field add fun(item:InventoryItem)
+---@field add fun(self, item:InventoryItem): boolean
 ---@field remove fun(pos:number)
 Inventory = {}
 
@@ -15,9 +16,11 @@ function Inventory:create()
 
     obj.items = {} -- InventoryItem[]
     obj.selectedSlotNumber = 1
+    obj.capacity = 5
 
     -- Methods
 
+    ---@deprecated Use just .items directly
     function obj:getAll()
         return obj.items
     end
@@ -27,9 +30,14 @@ function Inventory:create()
         return #obj.items
     end
 
-    -- @param InventoryItem item
+    ---@param item InventoryItem
     function obj:add(item)
+        if #obj.items == obj.capacity then
+            return false
+        end
+
         table.insert(obj.items, item)
+        return true
     end
 
     ---@param pos number
