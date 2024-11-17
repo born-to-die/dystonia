@@ -21,7 +21,9 @@ end
 
 require("src.entities.vector")
 require("src.game.control.playerControl")
+require("src.game.event.event_abstract")
 require("src.game.event.spawn_event")
+require("src.game.event.wall_spawner_event")
 require("src.game.inventory.inventory")
 require("src.game.inventory.inventory_item")
 require("src.game.inventory.beacon_item")

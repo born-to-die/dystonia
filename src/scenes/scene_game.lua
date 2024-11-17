@@ -2,6 +2,7 @@
 ---@field objectsRender ObjectsRender
 ---@field MAP_RIGHT_BORDER number
 ---@field MAP_LEFT_BORDER number
+---@field events EventAbstract[]
 GameScene = {};
 
 Extended(GameScene, Scene)
@@ -15,8 +16,10 @@ GameScene.wall = nil
 GameScene.walls = {}
 GameScene.items = {}
 GameScene.objects = {}
+GameScene.events = {}
 GameScene.spawnEvent = nil
 GameScene.inventory = nil
+GameScene.inGameTime = 0
 
 GameScene.SX = 1 -- scale on X axis
 GameScene.SY = 1 -- scale on Y axis
@@ -75,6 +78,9 @@ function GameScene:load()
 
   -- OBJECTS
   table.insert(self.objects, BeaconObject:create(1, 1))
+
+  -- EVENTS
+  table.insert(self.events, WallSpawnerEvent:create(self.walls, self.player, self.objects, self.inGameTime))
 end
 
 function GameScene:update()
@@ -107,9 +113,9 @@ function GameScene:update()
   self.player.vector:reset()
 
   -- EVENTS
-  -- TODO Move to special class
-
-  self.spawnEvent.update()
+  for i = 1, #self.events do
+    self.events[i]:update()
+  end
 end
 
 function GameScene:render()

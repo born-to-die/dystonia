@@ -1,3 +1,4 @@
+---@class PlayerRender
 PlayerRender = {}
 
 function PlayerRender:create()
@@ -5,6 +6,10 @@ function PlayerRender:create()
   local obj = {}
   
   ---@param player Player
+  ---@param px number
+  ---@param py number
+  ---@param scaleX number
+  ---@param scaleY number
   function obj:render(player, px, py, scaleX, scaleY)
     
     love.graphics.draw(
@@ -17,7 +22,8 @@ function PlayerRender:create()
     )
 
     love.graphics.setFont(GameScene.FONT_MEDIUM)
-    love.graphics.print("FOOD: " .. player.foodSaturation .. "%", 64, 96)
+    love.graphics.print("TIME: " .. GameScene.inGameTime .. " MINS", 64, 96)
+    love.graphics.print("FOOD: " .. player.foodSaturation .. "%", 64, 128)
     love.graphics.setFont(GameScene.FONT_DEFAULT)
     
     if DEBUG_RENDER == true then
