@@ -1,10 +1,10 @@
 ---@class WallSpawnerEvent
----@field create fun(self: self, walls: Wall[], player: Player, objects: Object[]): table
+---@field create fun(self: self, walls: Wall[], player: Player, objects: Object[], items: MapItem[]): table
 WallSpawnerEvent = {}
 
-function WallSpawnerEvent:create(walls, player, objects)
+function WallSpawnerEvent:create(walls, player, objects, items)
 
-  local obj = EventAbstract:create(walls, player, objects, inGameTime)
+  local obj = EventAbstract:create(walls, player, objects, items, inGameTime)
 
   -- properties
 
@@ -25,6 +25,8 @@ function WallSpawnerEvent:create(walls, player, objects)
   -- methods
 
   function obj.run()
+
+    player.foodSaturation = player.foodSaturation - 1
 
     for i = 1, 100, 1 do
       local wx = math.random(10) - 1

@@ -1,8 +1,8 @@
 ---@class EventAbstract
----@field create fun(self: self, walls: Wall[], player: Player, objects: Object[]): table
+---@field create fun(self: self, walls: Wall[], player: Player, objects: Object[], items: MapItem[]): table
 EventAbstract = {}
 
-function EventAbstract:create(walls, player, objects)
+function EventAbstract:create(walls, player, objects, items)
 
     local obj = {}
 
@@ -14,6 +14,7 @@ function EventAbstract:create(walls, player, objects)
     obj.walls = walls
     obj.player = player
     obj.objects = objects
+    obj.items = items
 
     -- variable methods
 

@@ -12,11 +12,13 @@ GameScene.playerControl = nil
 GameScene.playerRender = nil
 GameScene.backgroundRender = nil
 GameScene.objectsRender = nil
+GameScene.mobsRender = nil
 GameScene.wall = nil
 GameScene.walls = {}
 GameScene.items = {}
 GameScene.objects = {}
 GameScene.events = {}
+GameScene.mobs = {}
 GameScene.spawnEvent = nil
 GameScene.inventory = nil
 GameScene.inGameTime = 0
@@ -52,6 +54,7 @@ function GameScene:load()
   self.inventory = Inventory:create()
   
   self.itemsRender = ItemsRender:create()
+  self.mobsRender = MobsRender:create()
   self.playerRender = PlayerRender:create()
   self.backgroundRender = BackgroundRender:create()
   self.wallRender = WallRender:create()
@@ -80,7 +83,10 @@ function GameScene:load()
   table.insert(self.objects, BeaconObject:create(1, 1))
 
   -- EVENTS
-  table.insert(self.events, WallSpawnerEvent:create(self.walls, self.player, self.objects, self.inGameTime))
+  table.insert(self.events, WallSpawnerEvent:create(self.walls, self.player, self.objects, self.items))
+  table.insert(self.events, CrateSpawnerEvent:create(self.walls, self.player, self.objects))
+
+  table.insert(self.mobs, SlimeMob:create(5, 1))
 end
 
 function GameScene:update()
@@ -126,6 +132,8 @@ function GameScene:render()
     self.objectsRender:render(self.objects)
 
     self.playerRender:render(self.player, self.px, self.py, self.scaleX, self.scaleY)
+
+    self.mobsRender:render(self.mobs)
     
     self.wallRender:render(self.walls, self.scaleX, self.scaleY)
 
