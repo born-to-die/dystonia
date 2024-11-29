@@ -13,6 +13,7 @@ function SlimeMob:create(worldX, worldY)
 
     obj.sprite = love.graphics.newImage("gfx/slime_mob.png")
     obj.sprite:setFilter(GFX_DEFAULT_IMAGE_FILTER)
+    obj.vector = Vector:create()
 
     -- Methods
 

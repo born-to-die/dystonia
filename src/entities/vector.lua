@@ -1,3 +1,4 @@
+---@class Vector
 Vector = {}
 
 function Vector:create()
@@ -8,6 +9,17 @@ function Vector:create()
     obj.y = 0
     obj.speed = 0
 
+    ---@param x number
+    ---@param y number
+    ---@param speed number
+    function obj:set(x, y, speed)
+        obj.x = x
+        obj.y = y
+        obj.speed = speed
+    end
+
+    ---@param x number
+    ---@param speed number
     function obj:setX(x, speed)
         obj.x = x
         obj.speed = speed
@@ -22,11 +34,11 @@ function Vector:create()
         obj.speed = speed
     end
 
-    function obj.getSpeedX()
+    function obj:getSpeedX()
         return obj.x * obj.speed
     end
 
-    function obj.getSpeedY()
+    function obj:getSpeedY()
         return obj.y * obj.speed
     end
 

@@ -3,6 +3,7 @@
 ---@field MAP_RIGHT_BORDER number
 ---@field MAP_LEFT_BORDER number
 ---@field events EventAbstract[]
+---@field mobs Mob[]
 GameScene = {};
 
 Extended(GameScene, Scene)
@@ -117,6 +118,23 @@ function GameScene:update()
   self.player.worldY = math.floor((self.player.y - self.py) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
 
   self.player.vector:reset()
+
+  for i = 1, #self.mobs do
+    self.mobs[i].vector:set(-0.1, 1, 150 * GameScene.DT)
+    self.mobs[i].x = self.mobs[i].x + self.mobs[i].vector:getSpeedX()
+    self.mobs[i].y = self.mobs[i].y + self.mobs[i].vector:getSpeedY()
+
+    for j = 1, #self.walls do
+      local isC = self.collisionChecker:isPointInRect(self.walls[j], self.mobs[i])
+  
+      if isC == true then
+        self.mobs[i].vector.invert(5)
+        self.mobs[i].x = self.mobs[i].x + self.mobs[i].vector:getSpeedX()
+        self.mobs[i].y = self.mobs[i].y + self.mobs[i].vector:getSpeedY()
+        break
+      end
+    end
+  end
 
   -- EVENTS
   for i = 1, #self.events do

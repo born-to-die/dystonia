@@ -1,4 +1,6 @@
 ---@class Mob
+---@field x number
+---@field y number
 Mob = {}
 
 ---@param worldX number
