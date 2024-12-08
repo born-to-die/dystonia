@@ -120,9 +120,23 @@ function GameScene:update()
   self.player.vector:reset()
 
   for i = 1, #self.mobs do
-    self.mobs[i].vector:set(-0.1, 1, 150 * GameScene.DT)
-    self.mobs[i].x = self.mobs[i].x + self.mobs[i].vector:getSpeedX()
-    self.mobs[i].y = self.mobs[i].y + self.mobs[i].vector:getSpeedY()
+
+    self.mobs[i]:update()
+
+    local newX = self.mobs[i].x + self.mobs[i].vector:getSpeedX() * GameScene.DT
+    local newY = self.mobs[i].y + self.mobs[i].vector:getSpeedY() * GameScene.DT
+
+    if 
+      newX > GameScene.MAP_RIGHT_BORDER
+      or newX < GameScene.MAP_LEFT_BORDER
+      or newY > GameScene.MAP_BOTTOM_BORDER
+      or newY < GameScene.MAP_TOP_BORDER
+    then
+      goto continue
+    end
+
+    self.mobs[i].x = self.mobs[i].x + self.mobs[i].vector:getSpeedX() * GameScene.DT
+    self.mobs[i].y = self.mobs[i].y + self.mobs[i].vector:getSpeedY() * GameScene.DT
 
     for j = 1, #self.walls do
       local isC = self.collisionChecker:isPointInRect(self.walls[j], self.mobs[i])
@@ -134,6 +148,7 @@ function GameScene:update()
         break
       end
     end
+    ::continue::
   end
 
   -- EVENTS

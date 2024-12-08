@@ -1,6 +1,10 @@
 ---@class Mob
 ---@field x number
 ---@field y number
+---@field speed number
+---@field update fun()
+---@field moveRandomly fun()
+---@field behaviors Behavior[]
 Mob = {}
 
 ---@param worldX number
@@ -19,8 +23,36 @@ function Mob:create(worldX, worldY)
     obj.x = worldX * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32
     obj.y = worldY * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32
     obj.vector = Vector:create()
+    obj.speed = 10
+    obj.behaviors = {}
 
     -- Methods
+
+    function obj:update()
+        for i = 1, #obj.behaviors, 1 do
+            if obj.behaviors[i]:canExecute() then
+                obj.behaviors[i]:execute(self)
+            end
+        end
+    end
+
+    function obj:moveRandomly()
+        local rxv = math.random()
+        local rxs = math.random(2)
+        local ryv = math.random()
+        local rys = math.random(2)
+
+        if rxs == 1 then
+            rxv = -rxv
+        end
+
+        if rys == 1 then
+            ryv = -ryv
+        end
+
+        obj.vector:set(rxv, ryv, obj.speed);
+
+    end
 
     -- Magic
 
