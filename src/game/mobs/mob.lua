@@ -1,10 +1,12 @@
 ---@class Mob
 ---@field x number
 ---@field y number
----@field speed number
 ---@field update fun()
 ---@field moveRandomly fun()
 ---@field behaviors Behavior[]
+---@field speed number
+---@field health number
+---@field foodSaturation number
 Mob = {}
 
 ---@param worldX number
@@ -23,8 +25,12 @@ function Mob:create(worldX, worldY)
     obj.x = worldX * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32
     obj.y = worldY * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32
     obj.vector = Vector:create()
-    obj.speed = 10
+    
+    -- Attributes
     obj.behaviors = {}
+    obj.speed = 10
+    obj.health = 40
+    obj.foodSaturation = 100
 
     -- Methods
 
