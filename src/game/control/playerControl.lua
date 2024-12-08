@@ -29,20 +29,20 @@ function PlayerControl:create()
     
       if obj.keyRightPressed == true and player.x < GameScene.MAP_RIGHT_BORDER then
         player.directionX = 1
-        player.vector:setX(1, 150 * deltaTime)
+        player.vector:setX(1, player.speed)
       end
       
       if obj.keyDownPressed == true and player.y < GameScene.MAP_BOTTOM_BORDER then
-        player.vector:setY(1, 150 * deltaTime)
+        player.vector:setY(1, player.speed)
       end
 
       if obj.keyLeftPressed == true and player.x > GameScene.MAP_LEFT_BORDER then
           player.directionX = -1
-          player.vector:setX(-1, 150 * deltaTime)
+          player.vector:setX(-1, player.speed)
       end
 
       if obj.keyUpPressed == true and player.y > GameScene.MAP_TOP_BORDER then
-        player.vector:setY(-1, 150 * deltaTime)
+        player.vector:setY(-1, player.speed)
       end
   end
 

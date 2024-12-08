@@ -3,7 +3,10 @@
 ---@field worldY number
 ---@field x number
 ---@field y number
+---@field speed number
+---@field directionX number
 ---@field foodSaturation number
+---@field vector Vector
 Player = {}
 
 function Player:create(worldX, worldY, px, py, scaleX, scaleY)
@@ -20,7 +23,8 @@ function Player:create(worldX, worldY, px, py, scaleX, scaleY)
     obj.worldY = worldY
     obj.x = obj.sprite:getWidth() * scaleX * worldX + px
     obj.y = obj.sprite:getHeight() * scaleY * worldY + py
-    obj.vector = Vector:create()
+    obj.speed = 150
+    obj.vector = Vector:create(0, 0, 0)
     obj.directionX = 1
 
     -- Needle

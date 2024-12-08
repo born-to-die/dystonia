@@ -1,5 +1,4 @@
----@class MoveRandomly
-MoveRandomly = {}
+---@class MoveRandomly : Behavior
 MoveRandomly = setmetatable({}, Behavior)
 MoveRandomly.__index = MoveRandomly
 

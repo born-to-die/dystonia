@@ -1,13 +1,28 @@
 ---@class Vector
+---@field setX fun(self:self, x:number, speed:number)
+---@field setY fun(self:self, y:number, speed:number)
 Vector = {}
 
-function Vector:create()
+---@param x number
+---@param y number
+---@param speed number
+function Vector:create(x, y, speed)
 
   local obj = {}
 
-    obj.x = 0
-    obj.y = 0
-    obj.speed = 0
+    obj.x = x
+    obj.y = y
+    obj.speed = speed
+
+    local lenght = math.sqrt(obj.x^2 + obj.y^2)
+
+    if lenght > 0 then
+        obj.x = obj.x / lenght
+        obj.y = obj.y / lenght
+    else
+        obj.x = 0
+        obj.y = 0
+    end
 
     ---@param x number
     ---@param y number
@@ -23,11 +38,15 @@ function Vector:create()
     function obj:setX(x, speed)
         obj.x = x
         obj.speed = speed
+        obj:normalize()
     end
 
+    ---@param y number
+    ---@param speed number
     function obj:setY(y, speed)
         obj.y = y
         obj.speed = speed
+        obj:normalize()
     end
 
     function obj:setSpeed(speed)
@@ -57,7 +76,19 @@ function Vector:create()
         obj.speed = 0
     end
 
-  setmetatable(obj, self)
+    function obj:normalize()
+        local lenght = math.sqrt(obj.x^2 + obj.y^2)
+
+        if lenght > 0 then
+            obj.x = obj.x / lenght
+            obj.y = obj.y / lenght
+        else
+            obj.x = 0
+            obj.y = 0
+        end
+    end
+
+    setmetatable(obj, self)
     self.__index = self
 
     return obj

@@ -24,15 +24,22 @@ function Mob:create(worldX, worldY)
     obj.worldY = worldY
     obj.x = worldX * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32
     obj.y = worldY * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32
-    obj.vector = Vector:create()
     
     -- Attributes
     obj.behaviors = {}
-    obj.speed = 10
+    obj.speed = 100
     obj.health = 40
     obj.foodSaturation = 100
 
+    obj.vector = Vector:create(0, 0, obj.speed)
+
     -- Methods
+
+    obj.call = function ()
+        obj:foodSaturationUpdate()
+    end
+
+    self.foodSaturationIntervalTimer = TIMER(2, obj.call)
 
     function obj:update()
         for i = 1, #obj.behaviors, 1 do
@@ -57,7 +64,17 @@ function Mob:create(worldX, worldY)
         end
 
         obj.vector:set(rxv, ryv, obj.speed);
+    end
 
+    function obj:foodSaturationUpdate()
+        if not self.foodSaturationIntervalTimer.isExpired() then
+            self.foodSaturationIntervalTimer.update(GameScene.DT)
+            return false
+        else
+            obj.foodSaturation = obj.foodSaturation - 2
+            self.foodSaturationIntervalTimer = TIMER(2, self.call)
+            return true
+        end
     end
 
     -- Magic

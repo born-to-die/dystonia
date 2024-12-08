@@ -100,16 +100,16 @@ function GameScene:update()
 
   self.playerControl:update(self.player, deltaTime, self.items, self.inventory)
 
-  self.player.x = self.player.x + self.player.vector:getSpeedX()
-  self.player.y = self.player.y + self.player.vector:getSpeedY()
+  self.player.x = self.player.x + self.player.vector:getSpeedX() * GameScene.DT
+  self.player.y = self.player.y + self.player.vector:getSpeedY() * GameScene.DT
 
   for i = 1, #self.walls do
     local isC = self.collisionChecker:isPointInRect(self.walls[i], self.player)
 
     if isC == true then
       self.player.vector.invert(5)
-      self.player.x = self.player.x + self.player.vector:getSpeedX()
-      self.player.y = self.player.y + self.player.vector:getSpeedY()
+      self.player.x = self.player.x + self.player.vector:getSpeedX() * GameScene.DT
+      self.player.y = self.player.y + self.player.vector:getSpeedY() * GameScene.DT
       break
     end
   end
