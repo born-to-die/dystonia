@@ -8,6 +8,13 @@ function MobsRender:create()
   function obj:render(mobs)
     
     for i = 1, #mobs do
+
+      if (mobs[i].foodSaturation < 0) then
+        love.graphics.setColor(0.25, 0.25, 0.25)
+      else 
+        love.graphics.setColor(1, 1, 1)
+      end
+
       love.graphics.draw(
         mobs[i].sprite,
         mobs[i].x,

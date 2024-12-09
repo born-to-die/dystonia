@@ -107,7 +107,7 @@ function GameScene:update()
     local isC = self.collisionChecker:isPointInRect(self.walls[i], self.player)
 
     if isC == true then
-      self.player.vector.invert(5)
+      self.player.vector:invert()
       self.player.x = self.player.x + self.player.vector:getSpeedX() * GameScene.DT
       self.player.y = self.player.y + self.player.vector:getSpeedY() * GameScene.DT
       break
@@ -142,7 +142,7 @@ function GameScene:update()
       local isC = self.collisionChecker:isPointInRect(self.walls[j], self.mobs[i])
   
       if isC == true then
-        self.mobs[i].vector.invert(5)
+        self.mobs[i].vector:invert()
         self.mobs[i].x = self.mobs[i].x + self.mobs[i].vector:getSpeedX()
         self.mobs[i].y = self.mobs[i].y + self.mobs[i].vector:getSpeedY()
         break

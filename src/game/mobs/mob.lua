@@ -39,7 +39,7 @@ function Mob:create(worldX, worldY)
         obj:foodSaturationUpdate()
     end
 
-    self.foodSaturationIntervalTimer = TIMER(2, obj.call)
+    obj.foodSaturationIntervalTimer = TIMER(0.25, obj.call)
 
     function obj:update()
         for i = 1, #obj.behaviors, 1 do
@@ -47,6 +47,8 @@ function Mob:create(worldX, worldY)
                 obj.behaviors[i]:execute(self)
             end
         end
+
+        obj:foodSaturationUpdate()
     end
 
     function obj:moveRandomly()
@@ -71,10 +73,14 @@ function Mob:create(worldX, worldY)
             self.foodSaturationIntervalTimer.update(GameScene.DT)
             return false
         else
-            obj.foodSaturation = obj.foodSaturation - 2
-            self.foodSaturationIntervalTimer = TIMER(2, self.call)
+            obj.foodSaturation = obj.foodSaturation - 1
+            self.foodSaturationIntervalTimer = TIMER(0.25, self.call)
             return true
         end
+    end
+
+    function obj:die()
+        obj.sprite:setColor(0.5, 0.5, 0.5)
     end
 
     -- Magic
