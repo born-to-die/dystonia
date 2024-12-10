@@ -121,6 +121,10 @@ function GameScene:update()
 
   for i = 1, #self.mobs do
 
+    if self.mobs[i].alive == false then
+      goto continue
+    end
+
     self.mobs[i]:update()
 
     local newX = self.mobs[i].x + self.mobs[i].vector:getSpeedX() * GameScene.DT
@@ -143,8 +147,8 @@ function GameScene:update()
   
       if isC == true then
         self.mobs[i].vector:invert()
-        self.mobs[i].x = self.mobs[i].x + self.mobs[i].vector:getSpeedX()
-        self.mobs[i].y = self.mobs[i].y + self.mobs[i].vector:getSpeedY()
+        self.mobs[i].x = self.mobs[i].x + self.mobs[i].vector:getSpeedX() * GameScene.DT
+        self.mobs[i].y = self.mobs[i].y + self.mobs[i].vector:getSpeedY() * GameScene.DT
         break
       end
     end

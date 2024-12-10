@@ -9,7 +9,7 @@ function MobsRender:create()
     
     for i = 1, #mobs do
 
-      if (mobs[i].foodSaturation < 0) then
+      if (mobs[i].alive == false) then
         love.graphics.setColor(0.25, 0.25, 0.25)
       else 
         love.graphics.setColor(1, 1, 1)

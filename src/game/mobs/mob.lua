@@ -6,6 +6,7 @@
 ---@field behaviors Behavior[]
 ---@field speed number
 ---@field health number
+---@field alive boolean
 ---@field foodSaturation number
 Mob = {}
 
@@ -27,6 +28,7 @@ function Mob:create(worldX, worldY)
     
     -- Attributes
     obj.behaviors = {}
+    obj.alive = true
     obj.speed = 100
     obj.health = 40
     obj.foodSaturation = 100
@@ -42,6 +44,12 @@ function Mob:create(worldX, worldY)
     obj.foodSaturationIntervalTimer = TIMER(0.25, obj.call)
 
     function obj:update()
+
+        if obj.health <= 0 then
+            obj.alive = false
+            return
+        end
+
         for i = 1, #obj.behaviors, 1 do
             if obj.behaviors[i]:canExecute() then
                 obj.behaviors[i]:execute(self)
@@ -73,7 +81,12 @@ function Mob:create(worldX, worldY)
             self.foodSaturationIntervalTimer.update(GameScene.DT)
             return false
         else
-            obj.foodSaturation = obj.foodSaturation - 1
+            if obj.foodSaturation <= 0 then
+                obj.health = obj.health - 1
+            else
+                obj.foodSaturation = obj.foodSaturation - 2
+            end
+
             self.foodSaturationIntervalTimer = TIMER(0.25, self.call)
             return true
         end
