@@ -9,9 +9,11 @@ function CrateObject:create(worldX, worldY)
 
     -- Properties
 
+    obj.name = "crate"
+    obj.type = 'player-activity'
+
     obj.sprite = love.graphics.newImage("gfx/crate_object.png")
     obj.sprite:setFilter(GFX_DEFAULT_IMAGE_FILTER)
-    obj.type = 'player-activity'
 
     -- Methods
 

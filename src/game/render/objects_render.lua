@@ -12,8 +12,8 @@ function ObjectsRender:create()
     for i = 1, #objects do
       love.graphics.draw(
         objects[i].sprite,
-        objects[i].worldX * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX,
-        objects[i].worldY * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY,
+        objects[i].x,
+        objects[i].y,
         0,
         GameScene.SX, GameScene.SY
     )

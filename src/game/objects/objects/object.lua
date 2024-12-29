@@ -15,6 +15,9 @@ function Object:create(worldX, worldY)
 
     -- Properties
 
+    obj.name = "name"
+    obj.x = worldX * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX
+    obj.y = worldY * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY
     obj.worldX = worldX
     obj.worldY = worldY
     obj.sprite = nil

@@ -22,6 +22,13 @@ function MathService:create()
         return math.sqrt((x2 - x1)^2 + (y2 - y1)^2)
     end
 
+    ---@param obj1 table
+    ---@param obj2 table
+    ---@return number
+    function obj:distance(obj1, obj2)
+        return math.sqrt((obj2.x - obj1.x)^2 + (obj2.y - obj1.y)^2)
+    end
+
     -- Magic
 
     setmetatable(obj, self)

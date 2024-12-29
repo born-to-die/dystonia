@@ -12,7 +12,7 @@ Mob = {}
 
 ---@param worldX number
 ---@param worldY number
-function Mob:create(worldX, worldY)
+function Mob:create(x, y)
 
     local obj = {}
 
@@ -21,10 +21,10 @@ function Mob:create(worldX, worldY)
     obj.sprite = love.graphics.newImage("gfx/slime_mob.png")
 
     -- Position & Movement
-    obj.worldX = worldX
-    obj.worldY = worldY
-    obj.x = worldX * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32
-    obj.y = worldY * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32
+    obj.worldX = 5
+    obj.worldY = 5
+    obj.x = x
+    obj.y = y
     
     -- Attributes
     obj.behaviors = {}
@@ -57,6 +57,8 @@ function Mob:create(worldX, worldY)
         end
 
         obj:foodSaturationUpdate()
+
+        obj:specifyUpdate()
     end
 
     function obj:moveRandomly()
@@ -84,7 +86,7 @@ function Mob:create(worldX, worldY)
             if obj.foodSaturation <= 0 then
                 obj.health = obj.health - 1
             else
-                obj.foodSaturation = obj.foodSaturation - 2
+                obj.foodSaturation = obj.foodSaturation - 7
             end
 
             self.foodSaturationIntervalTimer = TIMER(0.25, self.call)
@@ -94,6 +96,17 @@ function Mob:create(worldX, worldY)
 
     function obj:die()
         obj.sprite:setColor(0.5, 0.5, 0.5)
+    end
+
+    ---@param x number
+    ---@param y number
+    function obj:setPosition(x, y)
+        obj.x = x
+        obj.y = y
+    end
+
+    function obj:specifyUpdate()
+        -- Special update for childs
     end
 
     -- Magic

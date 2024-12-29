@@ -9,7 +9,7 @@ function WallSpawnerEvent:create(walls, player, objects, items)
   -- properties
 
   obj.interval = 5
-  obj.chance = 0.75
+  obj.chance = 0.25
   obj.tileChecker = TileChecker:create()
   obj.mathService = MathService:create()
 

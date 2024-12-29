@@ -24,6 +24,8 @@ GameScene.spawnEvent = nil
 GameScene.inventory = nil
 GameScene.inGameTime = 0
 
+GameScene.mathService = MathService:create()
+
 GameScene.SX = 1 -- scale on X axis
 GameScene.SY = 1 -- scale on Y axis
 GameScene.PX = GFX_TILE_SIZE_PX / 2 * GameScene.SX * 9 -- padding on x axis
@@ -64,16 +66,18 @@ function GameScene:load()
 
   self.collisionChecker = CollisionChecker:create()
 
+
   self.spawnEvent = SpawnEvent:create()
   self.spawnEvent.init(self.walls, self.player, self.objects)
 
-  table.insert(self.walls, Wall:create(5, 5, self.px, self.py, self.scaleX, self.scaleY))
+  table.insert(self.walls, Wall:create(3, 3, self.px, self.py, self.scaleX, self.scaleY))
+  table.insert(self.walls, Wall:create(6, 3, self.px, self.py, self.scaleX, self.scaleY))
+  table.insert(self.walls, Wall:create(3, 6, self.px, self.py, self.scaleX, self.scaleY))
   table.insert(self.walls, Wall:create(6, 6, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(4, 7, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(5, 7, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(6, 7, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(6, 5, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(4, 6, self.px, self.py, self.scaleX, self.scaleY))
+  table.insert(self.walls, Wall:create(1, 1, self.px, self.py, self.scaleX, self.scaleY))
+  table.insert(self.walls, Wall:create(8, 1, self.px, self.py, self.scaleX, self.scaleY))
+  table.insert(self.walls, Wall:create(1, 8, self.px, self.py, self.scaleX, self.scaleY))
+  table.insert(self.walls, Wall:create(8, 8, self.px, self.py, self.scaleX, self.scaleY))
 
   -- ITEMS
   table.insert(self.items, BeaconMapItem:create(0, 0))
@@ -86,8 +90,9 @@ function GameScene:load()
   -- EVENTS
   table.insert(self.events, WallSpawnerEvent:create(self.walls, self.player, self.objects, self.items))
   table.insert(self.events, CrateSpawnerEvent:create(self.walls, self.player, self.objects))
+  table.insert(self.events, MushroomsSpawnerEvent:create(self.walls, self.player, self.objects))
 
-  table.insert(self.mobs, SlimeMob:create(5, 1))
+  table.insert(self.mobs, SlimeMob:create(5 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32, 1 * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32))
 end
 
 function GameScene:update()
