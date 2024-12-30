@@ -1,13 +1,11 @@
 ---@class SlimeMob
----@field worldX number
----@field worldY number
 SlimeMob = {};
 
--- @param int worldX
--- @param int worldY
-function SlimeMob:create(worldX, worldY)
+---@param x number
+---@param y number
+function SlimeMob:create(x, y)
 
-    local obj = Mob:create(worldX, worldY)
+    local obj = Mob:create(x, y)
 
     -- Properties
 
@@ -18,7 +16,7 @@ function SlimeMob:create(worldX, worldY)
     -- Attributes
     obj.speed = 200
     obj.health = 40
-    obj.foodSaturation = 10000
+    obj.foodSaturation = 100
 
     obj.vector = Vector:create(0, 0, obj.speed)
 
@@ -34,9 +32,24 @@ function SlimeMob:create(worldX, worldY)
             if GameScene.objects[i].name == "blue-mushrooms" then
                 if GameScene.mathService:distance(obj, GameScene.objects[i]) < 50 then
                     table.remove(GameScene.objects, i)
+                    obj.foodSaturation = obj.foodSaturation + 30
                 end
             end
             ::continue::
+        end
+
+        obj:spawnSlime()
+    end
+
+    function obj:spawnSlime()
+        if (obj.foodSaturation >= 200) then
+            local spawnTypeSlime = math.random(4)
+            if (spawnTypeSlime == 4) then
+                table.insert(GameScene.mobs, RedSlimeMob:create(obj.x, obj.y))
+            else
+                table.insert(GameScene.mobs, SlimeMob:create(obj.x, obj.y))
+            end
+            obj.foodSaturation = obj.foodSaturation - 100
         end
     end
 

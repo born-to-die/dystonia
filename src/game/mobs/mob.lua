@@ -10,8 +10,8 @@
 ---@field foodSaturation number
 Mob = {}
 
----@param worldX number
----@param worldY number
+---@param x number
+---@param y number
 function Mob:create(x, y)
 
     local obj = {}
@@ -86,7 +86,7 @@ function Mob:create(x, y)
             if obj.foodSaturation <= 0 then
                 obj.health = obj.health - 1
             else
-                obj.foodSaturation = obj.foodSaturation - 7
+                obj.foodSaturation = obj.foodSaturation - 1
             end
 
             self.foodSaturationIntervalTimer = TIMER(0.25, self.call)
