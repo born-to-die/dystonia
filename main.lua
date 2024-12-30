@@ -59,10 +59,10 @@ require("src.scenes.scene")
 require("src.scenes.scene_game")
 require("src.utils.timer")
 
-gameScene = GameScene:create()
-gameScene:init()
+GAME_SCENE = GameScene:create()
+GAME_SCENE:init()
 
-currentScene = gameScene
+currentScene = GAME_SCENE
 
 function love.load()
     love.window.setMode(GFX_RESOLUTION_W, GFX_RESOLUTION_H)

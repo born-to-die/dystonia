@@ -11,6 +11,8 @@
 ---@field currentAttackCooldown number
 ---@field attackFrameTime number
 ---@field currentAttackFrameTime number
+---@field damage number
+---@field inAttack boolean
 Player = {}
 
 function Player:create(worldX, worldY, px, py, scaleX, scaleY)
@@ -32,6 +34,8 @@ function Player:create(worldX, worldY, px, py, scaleX, scaleY)
     obj.directionX = 1
 
     -- Attacks properties
+    obj.damage = 10
+    obj.inAttack = false
     obj.attackCooldown = 0.5
     obj.currentAttackCooldown = 0
     obj.attackFrameTime = 0.1

@@ -28,9 +28,12 @@ function PlayerControl:create()
       if player.currentAttackFrameTime > 0 then
         player.currentAttackFrameTime = player.currentAttackFrameTime - GameScene.DT
 
-        for i = 1, #GameScene.mobs, 1 do
-          if CollisionChecker:isPointInRect(player:getAttackHitbox(), GameScene.mobs[i]) == true then
-            table.remove(GameScene.mobs, i)
+        if (player.inAttack == true) then
+          for i = 1, #GameScene.mobs, 1 do
+            if CollisionChecker:isPointInRect(player:getAttackHitbox(), GameScene.mobs[i]) == true then
+              GameScene.mobs[i].health = GameScene.mobs[i].health - player.damage
+              player.inAttack = false
+            end
           end
         end
       end
@@ -137,9 +140,11 @@ function PlayerControl:create()
   function obj:mousepressed(button)
     -- LMB: Attack
     if button == 1 then
-      if gameScene.player.currentAttackCooldown <= 0 then
-        gameScene.player.currentAttackCooldown = gameScene.player.attackCooldown
-        gameScene.player.currentAttackFrameTime = gameScene.player.attackFrameTime
+      local player = GAME_SCENE.player
+      if player.currentAttackCooldown <= 0 then
+        player.currentAttackCooldown = player.attackCooldown
+        player.currentAttackFrameTime = player.attackFrameTime
+        player.inAttack = true
       end
     end
   end
