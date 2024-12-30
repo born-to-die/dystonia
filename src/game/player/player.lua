@@ -59,18 +59,14 @@ function Player:create(worldX, worldY, px, py, scaleX, scaleY)
 end
 
 function Player:getAttackHitbox()
-    local hitboxPX = GFX_TILE_SIZE_PX / 2
-
-    if self.directionX == -1 then
-        hitboxPX = -GFX_TILE_SIZE_PX
-    end
+    local mx, my = love.mouse.getPosition()
 
     local hitbox = {}
 
-    hitbox.x = self.x + hitboxPX
-    hitbox.y = self.y - GFX_TILE_SIZE_PX / 2
-    hitbox.w = GFX_TILE_SIZE_PX / 2
-    hitbox.h = GFX_TILE_SIZE_PX
+    hitbox.angle = math.atan2(my - self.y, mx - self.x)
+    hitbox.radius = 30
+    hitbox.x = self.x + math.cos(hitbox.angle) * hitbox.radius
+    hitbox.y = self.y + math.sin(hitbox.angle) * hitbox.radius
 
     return hitbox
 end

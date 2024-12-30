@@ -23,18 +23,13 @@ function PlayerRender:create()
 
     -- Attacks hitbox render
     if player.currentAttackCooldown > 0 then
-      local hitboxPX = GFX_TILE_SIZE_PX / 2
+      local hitbox = player:getAttackHitbox()
 
-      if player.directionX == -1 then
-        hitboxPX = -GFX_TILE_SIZE_PX
-      end
-
-      love.graphics.rectangle(
-        "line",
-        player.x + hitboxPX,
-        player.y - GFX_TILE_SIZE_PX / 2,
-        GFX_TILE_SIZE_PX / 2,
-        GFX_TILE_SIZE_PX
+      love.graphics.circle(
+        "fill",
+        hitbox.x,
+        hitbox.y,
+        hitbox.radius
       )
     end
 
@@ -62,6 +57,15 @@ function PlayerRender:create()
     love.graphics.print("FPS: " .. love.timer.getFPS(), 0, 15)
     love.graphics.print("RAM: " .. math.ceil(collectgarbage("count") / 1024) .. "MB", 0, 30)
     love.graphics.print("CAC: " .. player.currentAttackCooldown, 0, 100)
+
+    local hitbox = player:getAttackHitbox()
+
+    love.graphics.circle(
+      "line",
+      hitbox.x,
+      hitbox.y,
+      hitbox.radius
+    )
   end
   
   setmetatable(obj, self)

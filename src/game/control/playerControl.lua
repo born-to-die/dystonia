@@ -21,6 +21,15 @@ function PlayerControl:create()
       items,
       inventory
     )
+      -- DIRECTION
+
+      local mx, my = love.mouse.getPosition()
+
+      if mx > player.x then
+        player.directionX = 1
+      else
+        player.directionX = -1
+      end
 
       -- ATTACKS
 
@@ -30,7 +39,17 @@ function PlayerControl:create()
 
         if (player.inAttack == true) then
           for i = 1, #GameScene.mobs, 1 do
-            if CollisionChecker:isPointInRect(player:getAttackHitbox(), GameScene.mobs[i]) == true then
+            local hitbox = player:getAttackHitbox()
+            
+            local ic = CollisionChecker:isPointInCircle(
+              hitbox.x,
+              hitbox.y,
+              hitbox.radius,
+              GameScene.mobs[i].x,
+              GameScene.mobs[i].y
+            )
+
+            if ic == true then
               GameScene.mobs[i].health = GameScene.mobs[i].health - player.damage
               player.inAttack = false
             end
@@ -54,7 +73,6 @@ function PlayerControl:create()
       obj.keyEscapePressed = love.keyboard.isDown("escape")
     
       if obj.keyRightPressed == true and player.x < GameScene.MAP_RIGHT_BORDER then
-        player.directionX = 1
         player.vector:setX(1, player.speed)
       end
       
@@ -63,7 +81,6 @@ function PlayerControl:create()
       end
 
       if obj.keyLeftPressed == true and player.x > GameScene.MAP_LEFT_BORDER then
-          player.directionX = -1
           player.vector:setX(-1, player.speed)
       end
 
