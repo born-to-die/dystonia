@@ -3,6 +3,7 @@
 ---@field MAP_RIGHT_BORDER number
 ---@field MAP_LEFT_BORDER number
 ---@field events EventAbstract[]
+---@field player Player
 ---@field mobs Mob[]
 GameScene = {};
 
@@ -188,4 +189,8 @@ end
 
 function GameScene:wheelmoved(x, y)
   self.playerControl:wheelmoved(x, y, self.inventory)
+end
+
+function GameScene:mousepressed(x, y, button, istouch)
+  self.playerControl:mousepressed(button)
 end

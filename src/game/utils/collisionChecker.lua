@@ -22,3 +22,13 @@ function CollisionChecker:create()
 
     return obj
 end
+
+---@param rect table (x, y, w, h)
+---@param point table (x, y)
+---@return boolean
+function CollisionChecker:isPointInRect(rect, point)
+    return rect.x <= point.x 
+        and point.x <= rect.x + rect.w 
+        and rect.y <= point.y 
+        and point.y <= rect.y + rect.h
+end

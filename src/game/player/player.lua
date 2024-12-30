@@ -7,6 +7,10 @@
 ---@field directionX number
 ---@field foodSaturation number
 ---@field vector Vector
+---@field attackCooldown number
+---@field currentAttackCooldown number
+---@field attackFrameTime number
+---@field currentAttackFrameTime number
 Player = {}
 
 function Player:create(worldX, worldY, px, py, scaleX, scaleY)
@@ -27,6 +31,12 @@ function Player:create(worldX, worldY, px, py, scaleX, scaleY)
     obj.vector = Vector:create(0, 0, 0)
     obj.directionX = 1
 
+    -- Attacks properties
+    obj.attackCooldown = 0.5
+    obj.currentAttackCooldown = 0
+    obj.attackFrameTime = 0.1
+    obj.currentAttackFrameTime = 0
+
     -- Needle
     obj.foodSaturation = 100
 
@@ -42,4 +52,21 @@ function Player:create(worldX, worldY, px, py, scaleX, scaleY)
     self.__index = self
 
     return obj
+end
+
+function Player:getAttackHitbox()
+    local hitboxPX = GFX_TILE_SIZE_PX / 2
+
+    if self.directionX == -1 then
+        hitboxPX = -GFX_TILE_SIZE_PX
+    end
+
+    local hitbox = {}
+
+    hitbox.x = self.x + hitboxPX
+    hitbox.y = self.y - GFX_TILE_SIZE_PX / 2
+    hitbox.w = GFX_TILE_SIZE_PX / 2
+    hitbox.h = GFX_TILE_SIZE_PX
+
+    return hitbox
 end

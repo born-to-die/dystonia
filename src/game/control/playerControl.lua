@@ -15,7 +15,30 @@ function PlayerControl:create()
     
     ---@param player Player
     ---@param inventory Inventory
-    function obj:update(player, deltaTime, items, inventory)
+    function obj:update(
+      player,
+      deltaTime,
+      items,
+      inventory
+    )
+
+      -- ATTACKS
+
+      -- Attack frame time
+      if player.currentAttackFrameTime > 0 then
+        player.currentAttackFrameTime = player.currentAttackFrameTime - GameScene.DT
+
+        for i = 1, #GameScene.mobs, 1 do
+          if CollisionChecker:isPointInRect(player:getAttackHitbox(), GameScene.mobs[i]) == true then
+            table.remove(GameScene.mobs, i)
+          end
+        end
+      end
+
+      -- Attack cooldown time
+      if player.currentAttackCooldown > 0 then
+        player.currentAttackCooldown = player.currentAttackCooldown - GameScene.DT
+      end
     
       -- Movement
       obj.keyRightPressed = love.keyboard.isDown(PC_RIGHT)
@@ -90,8 +113,7 @@ function PlayerControl:create()
     elseif key == "x" then
       table.insert(items, inventory.items[inventory.selectedSlotNumber]:getMapItem(player.worldX, player.worldY))
       table.remove(inventory.items, inventory.selectedSlotNumber)
-    
-
+  
     elseif key == "e" then
       for i = 1, #objects do
 
@@ -108,6 +130,16 @@ function PlayerControl:create()
           object:activate(items)
           table.remove(objects, i)
         end
+      end
+    end
+  end
+
+  function obj:mousepressed(button)
+    -- LMB: Attack
+    if button == 1 then
+      if gameScene.player.currentAttackCooldown <= 0 then
+        gameScene.player.currentAttackCooldown = gameScene.player.attackCooldown
+        gameScene.player.currentAttackFrameTime = gameScene.player.attackFrameTime
       end
     end
   end

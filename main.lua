@@ -84,3 +84,7 @@ end
 function love.wheelmoved(x, y)
     currentScene:wheelmoved(x, y)
 end
+
+function love.mousepressed(x, y, button)
+    currentScene:mousepressed(x, y, button)
+end
