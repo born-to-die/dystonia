@@ -1,11 +1,9 @@
 ---@class MapItem
----@field worldX number
----@field worldY number
----@field getItem fun():InventoryItem
 MapItem = {}
 
--- @param int worldX
--- @param int worldY
+---@param worldX number
+---@param worldY number
+---@return MapItem
 function MapItem:create(worldX, worldY)
 
     local obj = {}

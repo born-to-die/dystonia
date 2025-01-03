@@ -33,7 +33,7 @@ function CrateSpawnerEvent:create(walls, player, objects)
       local isFreeFromPlayer = obj.tileChecker:isFreeTileForObject(wx, wy, player)
 
       if isFreeFromWalls and isFreeFromPlayer then
-          table.insert(objects, CrateObject:create(wx, wy))
+          table.insert(objects, CrateObject:create(wx, wy, GameScene.items))
           break
       end
     end

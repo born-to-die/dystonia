@@ -89,7 +89,7 @@ function GameScene:load()
   -- EVENTS
   table.insert(self.events, WallSpawnerEvent:create(self.walls, self.player, self.objects, self.items))
   table.insert(self.events, CrateSpawnerEvent:create(self.walls, self.player, self.objects))
-  table.insert(self.events, MushroomsSpawnerEvent:create(self.walls, self.player, self.objects))
+  table.insert(self.events, MushroomsSpawnerEvent:create(self.walls, self.player, self.objects, self.items))
 
   table.insert(self.mobs, RedSlimeMob:create(5 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32, 1 * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32))
 end

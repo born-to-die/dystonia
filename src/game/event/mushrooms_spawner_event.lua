@@ -1,14 +1,17 @@
 ---@class MushroomsSpawnerEvent
----@field create fun(self: self, walls: Wall[], player: Player, objects: Object[]): table
 MushroomsSpawnerEvent = {}
 
-function MushroomsSpawnerEvent:create(walls, player, objects)
+---@param walls Wall[]
+---@param player Player
+---@param objects Object[]
+---@param items InventoryItem[]
+function MushroomsSpawnerEvent:create(walls, player, objects, items)
 
-  local obj = EventAbstract:create(walls, player, objects, inGameTime)
+  local obj = EventAbstract:create(walls, player, objects, items)
 
   -- properties
 
-  obj.interval = 1
+  obj.interval = 5
   obj.chance = 1
   obj.tileChecker = TileChecker:create()
   obj.mathService = MathService:create()
@@ -33,7 +36,7 @@ function MushroomsSpawnerEvent:create(walls, player, objects)
       local isFreeFromPlayer = obj.tileChecker:isFreeTileForObject(wx, wy, player)
 
       if isFreeFromWalls and isFreeFromPlayer then
-          table.insert(objects, BlueMushroomsObject:create(wx, wy))
+          table.insert(items, BlueMushroomMapItem:create(wx, wy))
           break
       end
     end

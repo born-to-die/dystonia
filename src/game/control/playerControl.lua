@@ -165,13 +165,32 @@ function PlayerControl:create()
       end
     -- RMB: Take/Active items/objects
     elseif button == 2 then
-      for i = 1, #GameScene.items, 1 do
+      -- Take item
+      for i = 1, #GameScene.items do
         if GameScene.items[i].worldX == GameScene.player.worldX and GameScene.items[i].worldY == GameScene.player.worldY then
           local isAdded = GameScene.inventory:add(GameScene.items[i]:getItem())
           if isAdded then
+            return
             table.remove(GameScene.items, i)
           end
           break
+        end
+      end
+
+      -- Activate object
+      for i = 1, #GameScene.objects do
+        local object = GameScene.objects[i]
+
+        if (object == nil) then
+          break
+        end
+
+        local isPlayerActivity = object.type == 'player-activity'
+        local isCloseToPlayer = object.worldX == GameScene.player.worldX and object.worldY == GameScene.player.worldY
+
+        if isPlayerActivity and isCloseToPlayer then
+          object:activate(items)
+          table.remove(GameScene.objects, i)
         end
       end
     end
