@@ -5,6 +5,7 @@
 ---@field y number
 ---@field speed number
 ---@field directionX number
+---@field health number
 ---@field foodSaturation number
 ---@field vector Vector
 ---@field attackCooldown number
@@ -42,6 +43,7 @@ function Player:create(worldX, worldY, px, py, scaleX, scaleY)
     obj.currentAttackFrameTime = 0
 
     -- Needle
+    obj.health = 100
     obj.foodSaturation = 100
 
     -- Methods

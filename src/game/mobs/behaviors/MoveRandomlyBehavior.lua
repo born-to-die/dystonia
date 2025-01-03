@@ -19,7 +19,6 @@ function MoveRandomly:canExecute()
         self.timer.update(GameScene.DT)
         return false
       else
-        GameScene.inGameTime = GameScene.inGameTime + 1
         self.timer = TIMER(2, self.call)
         return true
       end

@@ -1,5 +1,15 @@
 ---@class PlayerRender
+---@field FOOD_BAR_COLOR table
+---@field FONT_DEFAULT_COLOR table
 PlayerRender = {}
+
+-- Colors
+PlayerRender.FOOD_BAR_COLOR = {217 / 255, 116 / 255, 49 / 255, 1}
+PlayerRender.HEALTH_BAR_COLOR = {63 / 255, 149 / 255, 103 / 255, 1}
+PlayerRender.FONT_DEFAULT_COLOR = {1, 1, 1}
+
+love.graphics.setLineStyle("rough")
+love.graphics.setLineWidth(1)
 
 function PlayerRender:create()
   
@@ -35,7 +45,23 @@ function PlayerRender:create()
 
     love.graphics.setFont(GameScene.FONT_MEDIUM)
     love.graphics.print("TIME: " .. GameScene.inGameTime .. " MINS", 64, 96)
-    love.graphics.print("FOOD: " .. player.foodSaturation .. "%", 64, 128)
+
+    -- Health bar
+    love.graphics.setColor(PlayerRender.HEALTH_BAR_COLOR)
+    love.graphics.rectangle('fill', 64, 172, player.health * 164 / 100, 24)
+    love.graphics.rectangle('line', 62, 170, 169, 29)
+    love.graphics.setColor(PlayerRender.FONT_DEFAULT_COLOR)
+    love.graphics.setFont(GameScene.FONT_SUB_MEDIUM)
+    love.graphics.print("HEALTH: " .. player.health .. "%", 68, 174)
+    love.graphics.setFont(GameScene.FONT_DEFAULT)
+
+    -- Food bar
+    love.graphics.setColor(PlayerRender.FOOD_BAR_COLOR)
+    love.graphics.rectangle('fill', 64, 212, player.foodSaturation * 164 / 100, 24)
+    love.graphics.rectangle('line', 62, 210, 169, 29)
+    love.graphics.setColor(PlayerRender.FONT_DEFAULT_COLOR)
+    love.graphics.setFont(GameScene.FONT_SUB_MEDIUM)
+    love.graphics.print("FOOD: " .. player.foodSaturation .. "%", 68, 214)
     love.graphics.setFont(GameScene.FONT_DEFAULT)
     
     if DEBUG_RENDER == true then

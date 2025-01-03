@@ -8,7 +8,7 @@ function WallSpawnerEvent:create(walls, player, objects, items)
 
   -- properties
 
-  obj.interval = 5
+  obj.interval = 3
   obj.chance = 0.25
   obj.tileChecker = TileChecker:create()
   obj.mathService = MathService:create()
@@ -17,16 +17,15 @@ function WallSpawnerEvent:create(walls, player, objects, items)
     if not obj.timer.isExpired() then
       obj.timer.update(GameScene.DT)
     else
+      player.foodSaturation = player.foodSaturation - 1
       GameScene.inGameTime = GameScene.inGameTime + 1
-        obj.timer = TIMER(obj.interval, obj.check)
+      obj.timer = TIMER(obj.interval, obj.check)
     end
   end
 
   -- methods
 
   function obj.run()
-
-    player.foodSaturation = player.foodSaturation - 1
 
     for i = 1, 100, 1 do
       local wx = math.random(10) - 1

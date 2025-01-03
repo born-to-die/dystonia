@@ -39,6 +39,7 @@ GameScene.MAP_TOP_BORDER = GameScene.PY + GFX_TILE_SIZE_PX / 2
 GameScene.MAP_BOTTOM_BORDER = GameScene.PY + 10 * GFX_TILE_SIZE_PX - GFX_TILE_SIZE_PX / 2
 
 GameScene.FONT_DEFAULT = love.graphics.newFont(12)
+GameScene.FONT_SUB_MEDIUM = love.graphics.newFont(18)
 GameScene.FONT_MEDIUM = love.graphics.newFont(24)
 
 function GameScene:load()
@@ -93,7 +94,7 @@ function GameScene:load()
   table.insert(self.events, CrateSpawnerEvent:create(self.walls, self.player, self.objects))
   table.insert(self.events, MushroomsSpawnerEvent:create(self.walls, self.player, self.objects))
 
-  table.insert(self.mobs, SlimeMob:create(5 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32, 1 * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32))
+  table.insert(self.mobs, RedSlimeMob:create(5 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32, 1 * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32))
 end
 
 function GameScene:update()
