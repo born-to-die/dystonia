@@ -6,6 +6,7 @@ PlayerRender = {}
 -- Colors
 PlayerRender.FOOD_BAR_COLOR = {217 / 255, 116 / 255, 49 / 255, 1}
 PlayerRender.HEALTH_BAR_COLOR = {63 / 255, 149 / 255, 103 / 255, 1}
+PlayerRender.INVENTORY_COLOR = {106 / 255, 106 / 255, 107 / 255, 0.5}
 PlayerRender.FONT_DEFAULT_COLOR = {1, 1, 1}
 
 love.graphics.setLineStyle("rough")

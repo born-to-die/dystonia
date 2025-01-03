@@ -9,7 +9,13 @@ GameScene = {};
 
 Extended(GameScene, Scene)
 
-GameScene.player = nil
+GameScene.SX = 1 -- scale on X axis
+GameScene.SY = 1 -- scale on Y axis
+GameScene.PX = GFX_TILE_SIZE_PX / 2 * GameScene.SX * 9 -- padding on x axis
+GameScene.PY = GFX_TILE_SIZE_PX / 2 * GameScene.SY -- padding on x axis
+GameScene.DT = 0 -- delta time
+
+GameScene.player = Player:create(1, 1, GameScene.PX + 96, GameScene.PY + 96, GameScene.SX, GameScene.SY)
 GameScene.playerControl = nil
 GameScene.playerRender = nil
 GameScene.backgroundRender = nil
@@ -22,16 +28,10 @@ GameScene.objects = {}
 GameScene.events = {}
 GameScene.mobs = {}
 GameScene.spawnEvent = nil
-GameScene.inventory = nil
+GameScene.inventory = Inventory:create()
 GameScene.inGameTime = 0
 
 GameScene.mathService = MathService:create()
-
-GameScene.SX = 1 -- scale on X axis
-GameScene.SY = 1 -- scale on Y axis
-GameScene.PX = GFX_TILE_SIZE_PX / 2 * GameScene.SX * 9 -- padding on x axis
-GameScene.PY = GFX_TILE_SIZE_PX / 2 * GameScene.SY -- padding on x axis
-GameScene.DT = 0 -- delta time
 
 GameScene.MAP_RIGHT_BORDER = GameScene.PX + 10 * GFX_TILE_SIZE_PX - GFX_TILE_SIZE_PX / 2
 GameScene.MAP_LEFT_BORDER = GameScene.PX + GFX_TILE_SIZE_PX / 2
@@ -52,11 +52,8 @@ function GameScene:load()
 
   self.px = GFX_TILE_SIZE_PX / 2 * self.scaleX * 9
   self.py = GFX_TILE_SIZE_PX / 2 * self.scaleY
-
-  self.player = Player:create(1, 1, self.px + 96, self.py + 96, self.scaleX, self.scaleY)
   
   self.playerControl = PlayerControl:create()
-  self.inventory = Inventory:create()
   
   self.itemsRender = ItemsRender:create()
   self.mobsRender = MobsRender:create()

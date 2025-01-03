@@ -16,7 +16,7 @@ function Inventory:create()
 
     obj.items = {} -- InventoryItem[]
     obj.selectedSlotNumber = 1
-    obj.capacity = 5
+    obj.capacity = 3
 
     -- Methods
 

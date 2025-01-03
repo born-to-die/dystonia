@@ -163,6 +163,17 @@ function PlayerControl:create()
         player.currentAttackFrameTime = player.attackFrameTime
         player.inAttack = true
       end
+    -- RMB: Take/Active items/objects
+    elseif button == 2 then
+      for i = 1, #GameScene.items, 1 do
+        if GameScene.items[i].worldX == GameScene.player.worldX and GameScene.items[i].worldY == GameScene.player.worldY then
+          local isAdded = GameScene.inventory:add(GameScene.items[i]:getItem())
+          if isAdded then
+            table.remove(GameScene.items, i)
+          end
+          break
+        end
+      end
     end
   end
 
@@ -172,7 +183,7 @@ function PlayerControl:create()
   function obj:wheelmoved(x, y, inventory)
     if y > 0 and inventory.selectedSlotNumber > 1 then
       inventory.selectedSlotNumber = inventory.selectedSlotNumber - 1
-    elseif y < 0 and inventory.selectedSlotNumber < 5 then
+    elseif y < 0 and inventory.selectedSlotNumber < GameScene.inventory.capacity then
       inventory.selectedSlotNumber = inventory.selectedSlotNumber + 1
     end
   end
