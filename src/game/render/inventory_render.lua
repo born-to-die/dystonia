@@ -57,8 +57,9 @@ function InventoryRender:create()
 
     love.graphics.setFont(GameScene.FONT_MEDIUM)
     love.graphics.print(activeItemName, 1050, 140)
-    love.graphics.setFont(GameScene.FONT_SUB_MEDIUM)
-    love.graphics.printf("Draws formatted text, with word wrap and alignment. ", 1050, 180, 200, "left")
+    -- TODO Its for desc-ons of items
+    -- love.graphics.setFont(GameScene.FONT_SUB_MEDIUM)
+    -- love.graphics.printf("Draws formatted text, with word wrap and alignment. ", 1050, 180, 200, "left")
     love.graphics.setFont(GameScene.FONT_DEFAULT)
   end
   

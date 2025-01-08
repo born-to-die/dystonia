@@ -11,10 +11,11 @@ function SlimeMob:create(x, y)
 
     obj.sprite = love.graphics.newImage("gfx/slime_mob.png")
     obj.sprite:setFilter(GFX_DEFAULT_IMAGE_FILTER)
-    table.insert(obj.behaviors, MoveRandomly:new(obj))
+    -- table.insert(obj.behaviors, MoveRandomly:new(obj))
+    -- table.insert(obj.behaviors, MoveToAroundItem:new(obj, GameScene.items))
 
     -- Attributes
-    obj.speed = 200
+    obj.speed = 20
     obj.health = 40
     obj.foodSaturation = 100
 
@@ -23,15 +24,16 @@ function SlimeMob:create(x, y)
     -- Methods
 
     function obj:specifyUpdate()
-        for i = 1, #GameScene.objects do
 
-            if GameScene.objects[i] == nil then
+        for index, item in ipairs(GameScene.items) do
+
+            if item == nil then
                 goto continue
             end
 
-            if GameScene.objects[i].name == "blue-mushrooms" then
-                if GameScene.mathService:distance(obj, GameScene.objects[i]) < 50 then
-                    table.remove(GameScene.objects, i)
+            if item.name == BlueMushroomMapItem.name then
+                if MathService:distance(obj, item) < GFX_TILE_SIZE_PX / 2 then
+                    table.remove(GameScene.items, index)
                     obj.foodSaturation = obj.foodSaturation + 30
                 end
             end

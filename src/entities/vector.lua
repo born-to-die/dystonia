@@ -1,4 +1,6 @@
 ---@class Vector
+---@field x number
+---@field y number
 ---@field setX fun(self:self, x:number, speed:number)
 ---@field setY fun(self:self, y:number, speed:number)
 Vector = {}

@@ -8,6 +8,7 @@
 ---@field health number
 ---@field alive boolean
 ---@field foodSaturation number
+---@field vector Vector
 Mob = {}
 
 ---@param x number

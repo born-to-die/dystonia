@@ -11,10 +11,10 @@ function RedSlimeMob:create(x, y)
 
     obj.sprite = love.graphics.newImage("gfx/red_slime_mob.png")
     obj.sprite:setFilter(GFX_DEFAULT_IMAGE_FILTER)
-    table.insert(obj.behaviors, MoveRandomly:new(obj))
+    table.insert(obj.behaviors, MoveToAroundItem:new(obj, GameScene.items))
 
     -- Attributes
-    obj.speed = 200
+    obj.speed = 20
     obj.health = 40
     obj.foodSaturation = 100
 

@@ -10,11 +10,18 @@ function ItemsRender:create()
     for i = 1, #mapItems do
       love.graphics.draw(
         mapItems[i].sprite,
-        mapItems[i].worldX * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX,
-        mapItems[i].worldY * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY,
+        mapItems[i].x,
+        mapItems[i].y,
         0,
-        GameScene.SX, GameScene.SY
-    )
+        GameScene.SX, GameScene.SY,
+        mapItems[i].sprite:getWidth() / 2, mapItems[i].sprite:getHeight() / 2
+      )
+
+      if DEBUG_RENDER == true then
+        love.graphics.setColor(1, 1, 0)
+        love.graphics.circle("fill", mapItems[i].x, mapItems[i].y, 2)
+        love.graphics.setColor(1, 1, 1)
+      end
     end
 
     if DEBUG_RENDER then

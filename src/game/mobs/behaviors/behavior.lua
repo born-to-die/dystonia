@@ -1,9 +1,14 @@
 -- Интерфейс для поведения
 ---@class Behavior
+---@field mob Mob
 Behavior = {}
 Behavior.__index = Behavior
 
-function Behavior:new()
+Behavior.mob = nill
+
+---@param mob Mob
+function Behavior:new(mob)
+    self.mob = mob
     return setmetatable({}, self)
 end
 
@@ -12,6 +17,6 @@ function Behavior:canExecute()
     return false
 end
 
-function Behavior:execute(enemy, gameState)
+function Behavior:execute()
     -- Действие, нужно переопределить
 end

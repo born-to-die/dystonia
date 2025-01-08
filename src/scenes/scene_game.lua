@@ -5,6 +5,7 @@
 ---@field events EventAbstract[]
 ---@field player Player
 ---@field mobs Mob[]
+---@field items MapItem[]
 GameScene = {};
 
 Extended(GameScene, Scene)

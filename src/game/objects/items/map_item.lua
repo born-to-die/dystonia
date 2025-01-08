@@ -1,4 +1,7 @@
 ---@class MapItem
+---@field name string
+---@field x number
+---@field y number
 MapItem = {}
 
 ---@param worldX number
@@ -10,8 +13,11 @@ function MapItem:create(worldX, worldY)
 
     -- Properties
 
+    obj.name = 'item_name'
     obj.worldX = worldX
     obj.worldY = worldY
+    obj.x = worldX * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + GFX_TILE_SIZE_PX / 2
+    obj.y = worldY * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + GFX_TILE_SIZE_PX / 2
     obj.item = nil
 
     -- Methods

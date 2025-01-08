@@ -83,7 +83,6 @@ function PlayerRender:create()
     love.graphics.print(playerText, 0, 0)
     love.graphics.print("FPS: " .. love.timer.getFPS(), 0, 15)
     love.graphics.print("RAM: " .. math.ceil(collectgarbage("count") / 1024) .. "MB", 0, 30)
-    love.graphics.print("CAC: " .. player.currentAttackCooldown, 0, 100)
 
     local hitbox = player:getAttackHitbox()
 
