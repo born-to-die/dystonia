@@ -2,6 +2,8 @@
 MoveRandomly = setmetatable({}, Behavior)
 MoveRandomly.__index = MoveRandomly
 
+MoveRandomly.INTERVAL = 3
+
 function MoveRandomly:new(mob)
 
     self.call = function ()
@@ -9,7 +11,8 @@ function MoveRandomly:new(mob)
         self:execute(mob)
       end
 
-    self.timer = TIMER(2, self.call)
+    self.timer = TIMER(MoveRandomly.INTERVAL, self.call)
+    self.name = "MoveRandomly"
 
     return setmetatable({}, self)
 end
@@ -19,7 +22,7 @@ function MoveRandomly:canExecute()
         self.timer.update(GameScene.DT)
         return false
       else
-        self.timer = TIMER(2, self.call)
+        self.timer = TIMER(MoveRandomly.INTERVAL, self.call)
         return true
       end
 end

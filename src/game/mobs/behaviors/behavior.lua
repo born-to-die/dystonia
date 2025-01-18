@@ -4,11 +4,10 @@
 Behavior = {}
 Behavior.__index = Behavior
 
-Behavior.mob = nill
-
 ---@param mob Mob
 function Behavior:new(mob)
     self.mob = mob
+    self.name = "Unsetted behavior"
     return setmetatable({}, self)
 end
 

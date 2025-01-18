@@ -1,4 +1,4 @@
----@class SlimeMob
+---@class SlimeMob : Mob
 SlimeMob = {};
 
 ---@param x number
@@ -33,8 +33,9 @@ function SlimeMob:create(x, y)
 
             if item.name == BlueMushroomMapItem.name then
                 if MathService:distance(obj, item) < GFX_TILE_SIZE_PX / 2 then
+                    item.deleted = true
                     table.remove(GameScene.items, index)
-                    obj.foodSaturation = obj.foodSaturation + 30
+                    obj.foodSaturation = obj.foodSaturation + 50
                 end
             end
             ::continue::
@@ -44,7 +45,7 @@ function SlimeMob:create(x, y)
     end
 
     function obj:spawnSlime()
-        if (obj.foodSaturation >= 200) then
+        if (obj.foodSaturation >= 150) then
             local spawnTypeSlime = math.random(4)
             if (spawnTypeSlime == 4) then
                 table.insert(GameScene.mobs, RedSlimeMob:create(obj.x, obj.y))

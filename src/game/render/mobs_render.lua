@@ -34,6 +34,7 @@ function MobsRender:create()
         love.graphics.print("vector x: " .. mobs[i].vector.x, mobs[i].x + GFX_TILE_SIZE_PX / 2, mobs[i].y - GFX_TILE_SIZE_PX / 2 + GFX_TILE_SIZE_PX * 0.25 * 2)
         love.graphics.print("vector y: " .. mobs[i].vector.y, mobs[i].x + GFX_TILE_SIZE_PX / 2, mobs[i].y - GFX_TILE_SIZE_PX / 2 + GFX_TILE_SIZE_PX * 0.25 * 3)
         love.graphics.print("food: " .. mobs[i].foodSaturation, mobs[i].x + GFX_TILE_SIZE_PX / 2, mobs[i].y - GFX_TILE_SIZE_PX / 2 + GFX_TILE_SIZE_PX * 0.25 * 4)
+        love.graphics.print("behavior: " .. mobs[i].behaviorName, mobs[i].x + GFX_TILE_SIZE_PX / 2, mobs[i].y - GFX_TILE_SIZE_PX / 2 + GFX_TILE_SIZE_PX * 0.25 * 5)
 
         -- Draw direction vector
         local endX = mobs[i].x + mobs[i].vector.x * (mobs[i].speed)

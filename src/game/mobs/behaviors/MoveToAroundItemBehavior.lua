@@ -3,54 +3,67 @@
 MoveToAroundItem = setmetatable({}, Behavior)
 MoveToAroundItem.__index = MoveToAroundItem
 
-MoveToAroundItem.mapItems = {}
-
 ---@param mob Mob
 ---@param mapItems MapItem[]
 function MoveToAroundItem:new(mob, mapItems)
 
-    self.mob = mob
-    self.mapItems = mapItems
-    self.aroundItemPosition = nil
-    self.inProcess = false
+    local obj = {}
 
-    self.call = function ()
-      self:execute()
+    obj.name = "MoveToAroundItem"
+    obj.mob = mob
+    obj.mapItems = mapItems
+    obj.aroundItemPosition = {x = nil, y = nil, d = nil}
+
+    obj.call = function ()
+      obj:execute()
     end
 
-    self.timer = TIMER(2, self.call)
+    obj.timer = TIMER(2, obj.call)
 
-    return setmetatable({}, self)
+    return setmetatable(obj, self)
 end
 
 ---@return boolean
 function MoveToAroundItem:canExecute()
 
-  if self.inProcess == true then
-    return false
+  for i, mapItem in ipairs(self.mapItems) do
+    local distance = MathService:distance(self.mob, mapItem)
+    if distance < 200 and mapItem.name == BlueMushroomMapItem.name then
+      if (self.aroundItemPosition.d == nil or distance < self.aroundItemPosition.d) then 
+        self.aroundItemPosition = {
+          x = mapItem.x,
+          y = mapItem.y,
+          i = mapItem,
+          d = distance,
+        }
+      end
+    end
   end
 
-  for i, mapItem in ipairs(self.mapItems) do
-    if MathService:distance(self.mob, mapItem) < 500 and mapItem.name == BlueMushroomMapItem.name then
-      self.aroundItemPosition = {
-        x = mapItem.x,
-        y = mapItem.y
-      }
-
-      return true
-    end
+  if self.aroundItemPosition.d ~= nil then
+    return true
   end
 
   return false
 end
 
 function MoveToAroundItem:execute()
+
+  if (self.aroundItemPosition.i.deleted == true) then
+    self.aroundItemPosition = {x = nil, y = nil, d = nil, i = nil}
+    return
+  end
+
+  local distance = MathService:distance(self.mob, self.aroundItemPosition)
+
+  if (distance < GFX_TILE_SIZE_PX / 4) then
+    self.aroundItemPosition = {x = nil, y = nil, d = nil}
+    return
+  end
     
   self.mob.vector = MathService:getDirectionVector(
       self.mob.x, self.mob.y,
       self.aroundItemPosition.x, self.aroundItemPosition.y,
       self.mob.speed
     )
-
-    self.inProcess = true
 end

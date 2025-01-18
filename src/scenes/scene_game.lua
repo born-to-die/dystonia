@@ -93,6 +93,7 @@ function GameScene:load()
   table.insert(self.events, MushroomsSpawnerEvent:create(self.walls, self.player, self.objects, self.items))
 
   table.insert(self.mobs, RedSlimeMob:create(5 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32, 1 * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32))
+  table.insert(self.mobs, RedSlimeMob:create(8 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32, 4 * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32))
 end
 
 function GameScene:update()
@@ -132,6 +133,10 @@ function GameScene:update()
 
     self.mobs[i]:update()
 
+    if (self.mobs[i].vector.x == 0 and self.mobs[i].vector.y == 0) then
+      goto continue
+    end
+
     local newX = self.mobs[i].x + self.mobs[i].vector:getSpeedX() * GameScene.DT
     local newY = self.mobs[i].y + self.mobs[i].vector:getSpeedY() * GameScene.DT
 
@@ -144,19 +149,17 @@ function GameScene:update()
       goto continue
     end
 
-    self.mobs[i].x = self.mobs[i].x + self.mobs[i].vector:getSpeedX() * GameScene.DT
-    self.mobs[i].y = self.mobs[i].y + self.mobs[i].vector:getSpeedY() * GameScene.DT
-
     for j = 1, #self.walls do
-      local isC = self.collisionChecker:isPointInRect(self.walls[j], self.mobs[i])
+      local isC = self.collisionChecker:isPointInRect(self.walls[j], {x = newX, y = newY})
   
       if isC == true then
-        self.mobs[i].vector:invert()
-        self.mobs[i].x = self.mobs[i].x + self.mobs[i].vector:getSpeedX() * GameScene.DT
-        self.mobs[i].y = self.mobs[i].y + self.mobs[i].vector:getSpeedY() * GameScene.DT
-        break
+        goto continue
       end
     end
+
+    self.mobs[i].x = newX
+    self.mobs[i].y = newY
+
     ::continue::
   end
 
@@ -168,8 +171,6 @@ end
 
 function GameScene:render()
     self.backgroundRender:render(self.player, self.px, self.py, self.scaleX, self.scaleY)
-  
-    self.itemsRender:render(self.items)
 
     self.objectsRender:render(self.objects)
 
@@ -178,6 +179,8 @@ function GameScene:render()
     self.mobsRender:render(self.mobs)
     
     self.wallRender:render(self.walls, self.scaleX, self.scaleY)
+
+    self.itemsRender:render(self.items)
 
     self.inventoryRender:render(self.inventory)
 end

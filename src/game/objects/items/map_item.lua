@@ -2,6 +2,7 @@
 ---@field name string
 ---@field x number
 ---@field y number
+---@field deleted boolean
 MapItem = {}
 
 ---@param worldX number
@@ -19,6 +20,7 @@ function MapItem:create(worldX, worldY)
     obj.x = worldX * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + GFX_TILE_SIZE_PX / 2
     obj.y = worldY * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + GFX_TILE_SIZE_PX / 2
     obj.item = nil
+    obj.deleted = false
 
     -- Methods
 

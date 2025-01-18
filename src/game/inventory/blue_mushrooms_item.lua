@@ -15,7 +15,7 @@ function BlueMushroomsItem:create()
 
     ---@overload fun(worldX:number, worldY:number): nil
     function obj:getMapItem(worldX, worldY)
-        return CannedMapItem:create(worldX, worldY)
+        return BlueMushroomMapItem:create(worldX, worldY)
     end
 
     ---@param player Player

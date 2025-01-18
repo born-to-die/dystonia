@@ -170,8 +170,9 @@ function PlayerControl:create()
         if GameScene.items[i].worldX == GameScene.player.worldX and GameScene.items[i].worldY == GameScene.player.worldY then
           local isAdded = GameScene.inventory:add(GameScene.items[i]:getItem())
           if isAdded then
-            return
+            GameScene.items[i].deleted = true
             table.remove(GameScene.items, i)
+            return
           end
           break
         end

@@ -29,6 +29,7 @@ function Mob:create(x, y)
     
     -- Attributes
     obj.behaviors = {}
+    obj.behaviorName = ''
     obj.alive = true
     obj.speed = 100
     obj.health = 40
@@ -53,7 +54,9 @@ function Mob:create(x, y)
 
         for i = 1, #obj.behaviors, 1 do
             if obj.behaviors[i]:canExecute() then
+                obj.behaviorName = obj.behaviors[i].name
                 obj.behaviors[i]:execute(self)
+                break
             end
         end
 

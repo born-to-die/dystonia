@@ -1,4 +1,4 @@
----@class RedSlimeMob
+---@class RedSlimeMob : SlimeMob
 RedSlimeMob = {}
 
 ---@param x number
@@ -12,16 +12,17 @@ function RedSlimeMob:create(x, y)
     obj.sprite = love.graphics.newImage("gfx/red_slime_mob.png")
     obj.sprite:setFilter(GFX_DEFAULT_IMAGE_FILTER)
     table.insert(obj.behaviors, MoveToAroundItem:new(obj, GameScene.items))
+    table.insert(obj.behaviors, MoveRandomly:new(obj))
 
     -- Attributes
-    obj.speed = 20
+    obj.speed = 60
     obj.health = 40
     obj.foodSaturation = 100
 
     obj.vector = Vector:create(0, 0, obj.speed)
 
     function obj:spawnSlime()
-        if (obj.foodSaturation >= 200) then
+        if (obj.foodSaturation >= 120) then
             local spawnTypeSlime = math.random(4)
             if (spawnTypeSlime == 4) then
                 table.insert(GameScene.mobs, SlimeMob:create(obj.x, obj.y))
