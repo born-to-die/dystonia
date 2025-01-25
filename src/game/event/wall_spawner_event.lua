@@ -1,8 +1,18 @@
 ---@class WallSpawnerEvent
----@field create fun(self: self, walls: Wall[], player: Player, objects: Object[], items: MapItem[]): table
 WallSpawnerEvent = {}
 
-function WallSpawnerEvent:create(walls, player, objects, items)
+---@param walls Wall[]
+---@param player Player
+---@param objects Object[]
+---@param items MapItem[]
+---@param mobs Mob[]
+function WallSpawnerEvent:create(
+  walls,
+  player,
+  objects,
+  items,
+  mobs
+  )
 
   local obj = EventAbstract:create(walls, player, objects, items, inGameTime)
 
@@ -27,12 +37,34 @@ function WallSpawnerEvent:create(walls, player, objects, items)
 
   function obj.run()
 
-    for i = 1, 100, 1 do
+    for i = 1, 5, 1 do
       local wx = math.random(10) - 1
       local wy = math.random(10) - 1
 
       local isFreeFromWalls = obj.tileChecker:isFreeTileForList(wx, wy, walls)
+
+      if isFreeFromWalls == false then
+        break
+      end
+
+      local isFreeFromItems = obj.tileChecker:isFreeTileForList(wx, wy, items)
+
+      if isFreeFromItems == false then
+        break
+      end
+
       local isFreeFromPlayer = obj.tileChecker:isFreeTileForObject(wx, wy, player)
+
+      if isFreeFromPlayer == false then
+        break
+      end
+
+      local isFreeFromMobs = obj.tileChecker:isFreeTileFromMobs(wx, wy, mobs)
+
+      if isFreeFromMobs == false then
+        break
+      end
+
       local isNoCloseToObjects = true
       
       for i = 1, #objects do
@@ -43,10 +75,11 @@ function WallSpawnerEvent:create(walls, player, objects, items)
           end
       end
 
-      if isFreeFromWalls and isFreeFromPlayer and isNoCloseToObjects then
-          table.insert(walls, Wall:create(wx, wy, GameScene.PX, GameScene.PY, GameScene.SX, GameScene.SY))
-          break
+      if isNoCloseToObjects == false then
+        break
       end
+
+      table.insert(walls, Wall:create(wx, wy, GameScene.PX, GameScene.PY, GameScene.SX, GameScene.SY))
     end
   end
 

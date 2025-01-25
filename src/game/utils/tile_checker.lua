@@ -28,6 +28,30 @@ function TileChecker:create()
         return not (object.worldX == x and object.worldY == y)
     end
 
+    ---@param tx number tile x
+    ---@param ty number tile y
+    ---@param mobs Mob[]
+    ---@return boolean
+    function obj:isFreeTileFromMobs(tx, ty, mobs)
+        for i, mob in ipairs(mobs) do
+            local mobTX = math.floor((mob.x - GameScene.PX) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
+            
+            if mobTX ~= tx then
+                break
+            end
+
+            local mobTY = math.floor((mob.y - GameScene.PY) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
+
+            if mobTX ~= tx then
+                break
+            end
+
+            return false
+        end
+
+        return true
+    end
+
     -- Magic
 
     setmetatable(obj, self)

@@ -88,7 +88,7 @@ function GameScene:load()
   table.insert(self.objects, BeaconObject:create(1, 1))
 
   -- EVENTS
-  table.insert(self.events, WallSpawnerEvent:create(self.walls, self.player, self.objects, self.items))
+  table.insert(self.events, WallSpawnerEvent:create(self.walls, self.player, self.objects, self.items, self.mobs))
   table.insert(self.events, CrateSpawnerEvent:create(self.walls, self.player, self.objects))
   table.insert(self.events, MushroomsSpawnerEvent:create(self.walls, self.player, self.objects, self.items))
 
