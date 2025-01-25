@@ -53,12 +53,17 @@ function SlimeMob:create(x, y)
 
     function obj:spawnSlime()
         if (obj.foodSaturation >= SlimeMob.FOOD_SATURATION_MAX) then
-            local spawnTypeSlime = math.random(4)
-            if (spawnTypeSlime == 4) then
+            local spawnTypeSlime = math.random(6)
+            if spawnTypeSlime == 1 then
                 table.insert(GameScene.mobs, RedSlimeMob:create(obj.x, obj.y))
-            else
+            elseif spawnTypeSlime == 2 or spawnTypeSlime == 3 then
                 table.insert(GameScene.mobs, SlimeMob:create(obj.x, obj.y))
+            else
+                local tx = math.floor((obj.x - GAME_SCENE.PX) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
+                local ty = math.floor((obj.y - GAME_SCENE.PY) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
+                table.insert(GameScene.items, SlimeMapItem:create(tx, ty))
             end
+
             obj.foodSaturation = obj.foodSaturation - SlimeMob.SPAWN_SATURATIONS_COST
         end
     end
