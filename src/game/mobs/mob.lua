@@ -11,8 +11,12 @@
 ---@field vector Vector
 Mob = {}
 
+Mob.SATURATION_DECREASE_DEFAULT_TIME = 1
+Mob.SPEED_DEFAULT = 60
+
 ---@param x number
 ---@param y number
+---@return Mob
 function Mob:create(x, y)
 
     local obj = {}
@@ -30,8 +34,9 @@ function Mob:create(x, y)
     -- Attributes
     obj.behaviors = {}
     obj.behaviorName = ''
+
     obj.alive = true
-    obj.speed = 100
+    obj.speed = Mob.SPEED_DEFAULT
     obj.health = 40
     obj.foodSaturation = 100
 
@@ -43,7 +48,7 @@ function Mob:create(x, y)
         obj:foodSaturationUpdate()
     end
 
-    obj.foodSaturationIntervalTimer = TIMER(0.25, obj.call)
+    obj.foodSaturationIntervalTimer = TIMER(Mob.SATURATION_DECREASE_DEFAULT_TIME, obj.call)
 
     function obj:update()
 
@@ -93,7 +98,7 @@ function Mob:create(x, y)
                 obj.foodSaturation = obj.foodSaturation - 1
             end
 
-            self.foodSaturationIntervalTimer = TIMER(0.25, self.call)
+            self.foodSaturationIntervalTimer = TIMER(Mob.SATURATION_DECREASE_DEFAULT_TIME, self.call)
             return true
         end
     end
