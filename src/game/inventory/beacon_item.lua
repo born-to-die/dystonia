@@ -6,7 +6,8 @@ function BeaconItem:create()
 
     -- Properties
 
-    obj.name = "Beacon"
+    obj.name = "Torch"
+    obj.desc = "It seems like it's preventing the environment from changing?"
     obj.sprite = love.graphics.newImage("gfx/beacon_map_item.png")
     obj.sprite:setFilter(GFX_DEFAULT_IMAGE_FILTER)
     obj.type = InventoryItemType.OBJECT

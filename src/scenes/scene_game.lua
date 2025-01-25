@@ -172,6 +172,8 @@ end
 function GameScene:render()
     self.backgroundRender:render(self.player, self.px, self.py, self.scaleX, self.scaleY)
 
+    self.itemsRender:render(self.items)
+
     self.objectsRender:render(self.objects)
 
     self.playerRender:render(self.player, self.px, self.py, self.scaleX, self.scaleY)
@@ -179,8 +181,6 @@ function GameScene:render()
     self.mobsRender:render(self.mobs)
     
     self.wallRender:render(self.walls, self.scaleX, self.scaleY)
-
-    self.itemsRender:render(self.items)
 
     self.inventoryRender:render(self.inventory)
 end

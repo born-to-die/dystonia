@@ -1,5 +1,6 @@
 ---@class InventoryItem
 ---@field name string
+---@field desc string
 ---@field sprite table
 ---@field type number|nil
 ---@field mapItem MapItem
@@ -14,7 +15,8 @@ function InventoryItem:create()
 
     -- Properties
 
-    obj.name = nil
+    obj.name = ''
+    obj.desc = ''
     obj.sprite = nil
     obj.type = nil
 

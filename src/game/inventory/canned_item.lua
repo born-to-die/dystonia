@@ -7,6 +7,7 @@ function CannedItem:create()
     -- Properties
 
     obj.name = "Canned food"
+    obj.desc = "Canned meat, although I don't know what kind of meat it is"
     obj.sprite = love.graphics.newImage("gfx/canned_map_item.png")
     obj.sprite:setFilter(GFX_DEFAULT_IMAGE_FILTER)
     obj.type = InventoryItemType.USE
