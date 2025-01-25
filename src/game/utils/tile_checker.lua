@@ -8,6 +8,29 @@ function TileChecker:create()
 
     -- Methods
 
+    ---@param tx number
+    ---@param ty number
+    ---@return boolean
+    function obj:isFreeTile(tx, ty)
+
+        local isFreeTielFromPlayer self:isFreeTileForObject(tx, ty, GameScene.player)
+        if isFreeTielFromPlayer == false then return false end
+
+        local isFreeTileFromWalls = self:isFreeTileForList(tx, ty, GameScene.walls)
+        if isFreeTileFromWalls == false then return false end
+
+        local isFreeTileFromObjects = self:isFreeTileForList(tx, ty, GameScene.objects)
+        if isFreeTileFromObjects == false then return false end
+        
+        local isFreeTileFromItems = self:isFreeTileForList(tx, ty, GameScene.items)
+        if isFreeTileFromItems == false then return false end
+
+        local isFreeTileFromMobs = self:isFreeTileFromMobs(tx, ty, GameScene.mobs)
+        if isFreeTileFromMobs == false then return false end
+
+        return true
+    end
+
     -- @param int x
     -- @param int y
     -- @param table a like list (array)
