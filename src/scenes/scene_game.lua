@@ -91,9 +91,10 @@ function GameScene:load()
   table.insert(self.events, WallSpawnerEvent:create(self.walls, self.player, self.objects, self.items, self.mobs))
   table.insert(self.events, CrateSpawnerEvent:create(self.walls, self.player, self.objects))
   table.insert(self.events, MushroomsSpawnerEvent:create(self.walls, self.player, self.objects, self.items))
+  table.insert(self.events, SlimeSpawnerEvent:create(self.walls, self.player, self.objects, self.items, self.mobs))
 
-  table.insert(self.mobs, RedSlimeMob:create(5 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32, 1 * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32))
-  table.insert(self.mobs, RedSlimeMob:create(8 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32, 4 * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32))
+  -- table.insert(self.mobs, RedSlimeMob:create(5 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32, 1 * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32))
+  -- table.insert(self.mobs, RedSlimeMob:create(8 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32, 4 * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32))
 end
 
 function GameScene:update()

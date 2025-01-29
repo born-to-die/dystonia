@@ -4,6 +4,7 @@
 ---@field update fun()
 ---@field moveRandomly fun()
 ---@field behaviors Behavior[]
+---@field name string
 ---@field speed number
 ---@field health number
 ---@field alive boolean
@@ -35,6 +36,7 @@ function Mob:create(x, y)
     obj.behaviors = {}
     obj.behaviorName = ''
 
+    obj.name = 'Mob'
     obj.alive = true
     obj.speed = Mob.SPEED_DEFAULT
     obj.health = 40

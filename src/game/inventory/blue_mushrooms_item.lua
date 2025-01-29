@@ -19,14 +19,6 @@ function BlueMushroomsItem:create()
         return BlueMushroomMapItem:create(worldX, worldY)
     end
 
-    ---@param player Player
-    function obj:use(player)
-        player.foodSaturation = player.foodSaturation + 100
-        if (player.foodSaturation > 100) then
-            player.foodSaturation = 100
-        end
-    end
-
     -- Magic
 
     setmetatable(obj, self)

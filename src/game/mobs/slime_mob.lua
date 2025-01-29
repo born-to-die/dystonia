@@ -13,6 +13,7 @@ function SlimeMob:create(x, y)
 
     -- Properties
 
+    obj.name = "SlimeMob"
     obj.sprite = love.graphics.newImage("gfx/slime_mob.png")
     obj.sprite:setFilter(GFX_DEFAULT_IMAGE_FILTER)
 

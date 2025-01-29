@@ -96,7 +96,7 @@ function PlayerControl:create()
   ---@param objects Object[]
   function obj:keypressed(key, player, inventory, items, objects)
 
-    if key == "left" then
+    if key == "e" then
 
       local activeSlot = inventory.items[inventory.selectedSlotNumber]
 
