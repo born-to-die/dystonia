@@ -11,6 +11,7 @@ function MoveToAroundPlayer:new(mob)
     obj.name = "MoveToAroundPlayer"
     obj.mob = mob
     obj.move = false
+    obj.distanceToPlayer = 0
 
     obj.call = function ()
       obj:execute()
@@ -24,20 +25,35 @@ end
 ---@return boolean
 function MoveToAroundPlayer:canExecute()
 
-  local distance = MathService:distance(self.mob, GameScene.player)
+  self.distanceToPlayer = MathService:distance(self.mob, GameScene.player)
 
-  if distance < 200  then
+  if self.distanceToPlayer < 200  then
     return true
   end
 
+  self.mob.inAttack = false
   return false
 end
 
 function MoveToAroundPlayer:execute()
 
+  local isCloseToPlayer = self.distanceToPlayer < 50
+
+  local speed = self.mob.speed 
+
+  if isCloseToPlayer then
+    speed = 0
+  end
+
+  if isCloseToPlayer then
+    self.mob:attack()
+  end
+  
+  if isCloseToPlayer then speed = 0 end
+
   self.mob.vector = MathService:getDirectionVector(
       self.mob.x, self.mob.y,
       GameScene.player.x, GameScene.player.y,
-      self.mob.speed
+      speed
   )
 end

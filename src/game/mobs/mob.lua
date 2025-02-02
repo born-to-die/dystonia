@@ -8,8 +8,11 @@
 ---@field speed number
 ---@field health number
 ---@field alive boolean
+---@field inAttack boolean
 ---@field foodSaturation number
 ---@field vector Vector
+---@field attack function
+---@field currentAttackCooldown boolean
 Mob = {}
 
 Mob.SATURATION_DECREASE_DEFAULT_TIME = 1
@@ -31,6 +34,14 @@ function Mob:create(x, y)
     obj.worldY = 5
     obj.x = x
     obj.y = y
+
+    -- Attacks properties
+    obj.damage = 10
+    obj.inAttack = false
+    obj.attackCooldown = 2
+    obj.currentAttackCooldown = 0
+    obj.attackFrameTime = 1
+    obj.currentAttackFrameTime = 0
     
     -- Attributes
     obj.behaviors = {}
@@ -58,6 +69,33 @@ function Mob:create(x, y)
             obj.alive = false
             return
         end
+
+        -- Attack frame time
+      if obj.currentAttackFrameTime > 0 then
+        obj.currentAttackFrameTime = obj.currentAttackFrameTime - GameScene.DT
+
+        if (obj.inAttack == true) then
+            local hitbox = obj:getAttackHitbox()
+            
+            local ic = CollisionChecker:isPointInCircle(
+              hitbox.x,
+              hitbox.y,
+              hitbox.radius,
+              GameScene.player.x,
+              GameScene.player.y
+            )
+
+            if ic == true then
+              GameScene.player.health = GameScene.player.health - obj.damage
+              obj.inAttack = false
+            end
+        end
+      end
+
+      -- Attack cooldown time
+      if obj.currentAttackCooldown > 0 then
+        obj.currentAttackCooldown = obj.currentAttackCooldown - GameScene.DT
+      end
 
         for i = 1, #obj.behaviors, 1 do
             if obj.behaviors[i]:canExecute() then
@@ -118,6 +156,28 @@ function Mob:create(x, y)
 
     function obj:specifyUpdate()
         -- Special update for childs
+    end
+
+    function obj:attack()
+        if obj.currentAttackCooldown <= 0 then
+            obj.currentAttackCooldown = obj.attackCooldown
+            obj.currentAttackFrameTime = obj.attackFrameTime
+            obj.inAttack = true
+          end
+    end
+
+    function obj:getAttackHitbox()
+        local hitbox = {}
+
+        local ex = obj.x + obj.vector.x * (obj.speed)
+        local ey = obj.y + obj.vector.y * (obj.speed)
+    
+        hitbox.angle = math.atan2(ey - obj.y, ex - obj.x)
+        hitbox.radius = 30
+        hitbox.x = obj.x + math.cos(hitbox.angle) * hitbox.radius
+        hitbox.y = obj.y + math.sin(hitbox.angle) * hitbox.radius
+    
+        return hitbox
     end
 
     -- Magic

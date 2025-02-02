@@ -41,6 +41,20 @@ function MobsRender:create()
         local endY = mobs[i].y + mobs[i].vector.y * (mobs[i].speed)
 
         love.graphics.line(mobs[i].x, mobs[i].y, endX, endY)
+
+        local mob = mobs[i];
+
+        local hitbox = mob:getAttackHitbox()
+
+        local hitboxDrawMode = "line"
+        if mob.currentAttackCooldown > 0 then hitboxDrawMode = "fill" end
+
+        love.graphics.circle(
+          hitboxDrawMode,
+          hitbox.x,
+          hitbox.y,
+          hitbox.radius
+        )
       end
     end
   end
