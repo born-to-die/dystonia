@@ -7,6 +7,7 @@ SlimeMob.SPAWN_SATURATIONS_COST = 175
 
 ---@param x number
 ---@param y number
+---@return SlimeMob
 function SlimeMob:create(x, y)
 
     local obj = Mob:create(x, y)
@@ -23,7 +24,6 @@ function SlimeMob:create(x, y)
 
     obj.vector = Vector:create(0, 0, self.SPEED)
 
-    table.insert(obj.behaviors, MoveToAroundPlayer:new(obj))
     table.insert(obj.behaviors, MoveToAroundItem:new(obj, GameScene.items))
     table.insert(obj.behaviors, MoveRandomly:new(obj))
 
