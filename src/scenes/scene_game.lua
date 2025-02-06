@@ -6,6 +6,7 @@
 ---@field player Player
 ---@field mobs Mob[]
 ---@field items MapItem[]
+---@field walls Wall[]
 GameScene = {};
 
 Extended(GameScene, Scene)

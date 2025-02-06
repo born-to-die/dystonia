@@ -1,6 +1,7 @@
 ---@class Wall
 ---@field worldX number
 ---@field worldY number
+---@field health number
 Wall = {}
 
 function Wall:create(worldX, worldY, px, py, scaleX, scaleY)
@@ -14,6 +15,7 @@ function Wall:create(worldX, worldY, px, py, scaleX, scaleY)
     
     obj.worldX = worldX
     obj.worldY = worldY
+    obj.health = 100
 
     obj.w = obj.sprite:getWidth() * scaleX
     obj.h = obj.sprite:getHeight() * scaleY
@@ -31,4 +33,10 @@ function Wall:create(worldX, worldY, px, py, scaleX, scaleY)
     self.__index = self
 
     return obj
+end
+
+---@param damage number
+---@return nil
+function Wall:addDamage(damage)
+    self.health = self.health - damage
 end

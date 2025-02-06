@@ -43,9 +43,10 @@ function PlayerControl:create()
         player.currentAttackFrameTime = player.currentAttackFrameTime - GameScene.DT
 
         if (player.inAttack == true) then
+          local hitbox = player:getAttackHitbox()
+
           for i = 1, #GameScene.mobs, 1 do
-            local hitbox = player:getAttackHitbox()
-            
+
             local ic = CollisionChecker:isPointInCircle(
               hitbox.x,
               hitbox.y,
@@ -57,6 +58,26 @@ function PlayerControl:create()
             if ic == true then
               GameScene.mobs[i].health = GameScene.mobs[i].health - player.damage
               player.inAttack = false
+              return
+            end
+          end
+
+          for i,wall in ipairs(GameScene.walls) do
+            local ic = CollisionChecker:isPointInCircle(
+              hitbox.x,
+              hitbox.y,
+              hitbox.radius,
+              wall.x,
+              wall.y
+            )
+
+            if ic == true then
+              wall:addDamage(player.damage)
+              if wall.health <= 0 then
+                table.remove(GameScene.walls, i)
+              end
+              player.inAttack = false
+              return
             end
           end
         end
