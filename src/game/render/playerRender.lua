@@ -23,11 +23,29 @@ function PlayerRender:create()
   ---@param scaleY number
   function obj:render(player, px, py, scaleX, scaleY)
     
+    if player.health <= 0 then
+      love.graphics.setColor(0.25, 0.25, 0.25)
+      
+      love.graphics.draw(
+        player.sprite,
+        player.x,
+        player.y,
+        GameScene.PI_HALF,
+        -scaleX, scaleY,
+        player.sprite:getWidth() / 2, player.sprite:getHeight() / 2
+      )
+
+      love.graphics.setColor(1, 1, 1)
+
+      return
+    end
+
+
     love.graphics.draw(
         player.sprite,
         player.x,
         player.y,
-        0, 
+        0,
         scaleX * player.directionX, scaleY,
         player.sprite:getWidth() / 2, player.sprite:getHeight() / 2
     )

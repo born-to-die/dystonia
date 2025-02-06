@@ -25,6 +25,10 @@ end
 ---@return boolean
 function MoveToAroundPlayer:canExecute()
 
+  if GameScene.player.health <= 0 then
+    return false
+  end
+
   self.distanceToPlayer = MathService:distance(self.mob, GameScene.player)
 
   if self.distanceToPlayer < 200  then

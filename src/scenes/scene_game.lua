@@ -16,6 +16,9 @@ GameScene.PX = GFX_TILE_SIZE_PX / 2 * GameScene.SX * 9 -- padding on x axis
 GameScene.PY = GFX_TILE_SIZE_PX / 2 * GameScene.SY -- padding on x axis
 GameScene.DT = 0 -- delta time
 
+GameScene.PI = math.pi
+GameScene.PI_HALF = GameScene.PI / 2
+
 GameScene.player = Player:create(1, 1, GameScene.PX + 96, GameScene.PY + 96, GameScene.SX, GameScene.SY)
 GameScene.playerControl = nil
 GameScene.playerRender = nil

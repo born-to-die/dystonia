@@ -2,12 +2,15 @@ if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then
     require("lldebugger").start()
 end
 
+WINDOW_TITLE = "G7C1"
 GFX_TILE_SIZE_PX = 64
 GFX_DEFAULT_SCALE_IMAGE = 1
 GFX_DEFAULT_IMAGE_FILTER = "nearest"
 GFX_RESOLUTION_W = 1280
 GFX_RESOLUTION_H = 720
 DEBUG_RENDER = true
+
+love.window.setTitle(WINDOW_TITLE)
 
 PC_UP = 'w'
 PC_RIGHT = 'd'

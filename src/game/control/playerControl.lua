@@ -21,6 +21,11 @@ function PlayerControl:create()
       items,
       inventory
     )
+
+      if player.health <= 0 then
+        return
+      end
+
       -- DIRECTION
 
       local mx, my = love.mouse.getPosition()
