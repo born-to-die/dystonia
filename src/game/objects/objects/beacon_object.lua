@@ -12,7 +12,7 @@ function BeaconObject:create(worldX, worldY)
     obj.name = "beacon"
     obj.type = 'passive-activity'
 
-    obj.sprite = love.graphics.newImage("gfx/beacon_object.png")
+    obj.sprite = love.graphics.newImage("gfx/torch_object.png")
     obj.sprite:setFilter(GFX_DEFAULT_IMAGE_FILTER)
 
     -- Methods
