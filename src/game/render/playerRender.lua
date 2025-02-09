@@ -15,6 +15,12 @@ love.graphics.setLineWidth(1)
 function PlayerRender:create()
   
   local obj = {}
+
+  obj.hearth = love.graphics.newImage("gfx/ui/hearth.png")
+  obj.hearth:setFilter(GFX_DEFAULT_IMAGE_FILTER)
+
+  obj.stomach = love.graphics.newImage("gfx/ui/stomach.png")
+  obj.stomach:setFilter(GFX_DEFAULT_IMAGE_FILTER)
   
   ---@param player Player
   ---@param px number
@@ -66,6 +72,8 @@ function PlayerRender:create()
     love.graphics.print("TIME: " .. GameScene.inGameTime .. " MINS", 64, 96)
 
     -- Health bar
+
+    love.graphics.draw(obj.hearth, 30, 168, 0)
     love.graphics.setColor(PlayerRender.HEALTH_BAR_COLOR)
     love.graphics.rectangle('fill', 64, 172, player.health * 164 / 100, 24)
     love.graphics.rectangle('line', 62, 170, 169, 29)
@@ -75,6 +83,8 @@ function PlayerRender:create()
     love.graphics.setFont(GameScene.FONT_DEFAULT)
 
     -- Food bar
+
+    love.graphics.draw(obj.stomach, 30, 208, 0)
     love.graphics.setColor(PlayerRender.FOOD_BAR_COLOR)
     love.graphics.rectangle('fill', 64, 212, player.foodSaturation * 164 / 100, 24)
     love.graphics.rectangle('line', 62, 210, 169, 29)

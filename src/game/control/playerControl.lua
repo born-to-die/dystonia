@@ -159,6 +159,9 @@ function PlayerControl:create()
     elseif key == "x" then
       table.insert(items, inventory.items[inventory.selectedSlotNumber]:getMapItem(player.worldX, player.worldY))
       table.remove(inventory.items, inventory.selectedSlotNumber)
+
+    elseif key == "f5" then
+      DEBUG_RENDER = not DEBUG_RENDER
   
     elseif key == "e" then
       for i = 1, #objects do

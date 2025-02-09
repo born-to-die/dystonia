@@ -2,7 +2,7 @@ if os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" then
     require("lldebugger").start()
 end
 
-WINDOW_TITLE = "G7C1"
+WINDOW_TITLE = "g7c1"
 GFX_TILE_SIZE_PX = 64
 GFX_DEFAULT_SCALE_IMAGE = 1
 GFX_DEFAULT_IMAGE_FILTER = "nearest"

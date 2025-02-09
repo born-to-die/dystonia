@@ -18,7 +18,9 @@ function WallRender:create()
         sx, sy
       )
 
-      love.graphics.circle("fill", walls[i].x, walls[i].y, 2)
+      if DEBUG_RENDER then
+        love.graphics.circle("fill", walls[i].x, walls[i].y, 2)
+      end
     end
 
     if DEBUG_RENDER then

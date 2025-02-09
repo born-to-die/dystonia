@@ -24,6 +24,18 @@ function MobsRender:create()
         mobs[i].sprite:getWidth() / 2, mobs[i].sprite:getHeight() / 2
       )
 
+      if mobs[i].currentAttackCooldown > 0 then
+        local hitbox = mobs[i]:getAttackHitbox()
+
+        love.graphics.circle(
+          "fill",
+          hitbox.x,
+          hitbox.y,
+          hitbox.radius
+        )
+      end
+      
+
       if DEBUG_RENDER == true then
         love.graphics.setColor(1, 1, 0)
         love.graphics.circle("fill", mobs[i].x, mobs[i].y, 2)
