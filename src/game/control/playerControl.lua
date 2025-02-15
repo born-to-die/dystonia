@@ -67,8 +67,8 @@ function PlayerControl:create()
               hitbox.x,
               hitbox.y,
               hitbox.radius,
-              wall.x,
-              wall.y
+              wall.pointX,
+              wall.pointY
             )
 
             if ic == true then

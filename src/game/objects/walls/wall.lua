@@ -23,6 +23,9 @@ function Wall:create(worldX, worldY, px, py, scaleX, scaleY)
     obj.x = obj.sprite:getWidth() * scaleX * worldX + px
     obj.y = obj.sprite:getHeight() * scaleY * worldY + py
 
+    obj.pointX = obj.sprite:getWidth() * scaleX * worldX + px + GFX_TILE_HALF_SIZE_PX
+    obj.pointY = obj.sprite:getHeight() * scaleY * worldY + py + GFX_TILE_HALF_SIZE_PX
+
     obj.directionX = 1
 
     -- Methods
