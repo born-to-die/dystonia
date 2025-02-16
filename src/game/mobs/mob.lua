@@ -8,6 +8,7 @@
 ---@field speed number
 ---@field health number
 ---@field alive boolean
+---@field directionSprite number
 ---@field inAttack boolean
 ---@field isEating boolean
 ---@field foodSaturation number
@@ -50,6 +51,7 @@ function Mob:create(x, y)
 
     obj.name = 'Mob'
     obj.alive = true
+    obj.directionSprite = 1
     obj.speed = Mob.SPEED_DEFAULT
     obj.health = 40
     obj.isEating = true

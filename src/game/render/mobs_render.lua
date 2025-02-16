@@ -20,7 +20,7 @@ function MobsRender:create()
         mobs[i].x,
         mobs[i].y,
         0,
-        GameScene.SX, GameScene.SY,
+        GameScene.SX * mobs[i].directionSprite, GameScene.SY,
         mobs[i].sprite:getWidth() / 2, mobs[i].sprite:getHeight() / 2
       )
 

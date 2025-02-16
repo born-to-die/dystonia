@@ -17,7 +17,8 @@ function HoundMob:create(x, y)
 
     -- Attributes
     obj.health = 60
-    obj.speed = 100
+    obj.speed = 200
+    obj.damage = 20
     obj.isEating = false
 
     obj.vector = Vector:create(0, 0, obj.speed)
@@ -25,6 +26,13 @@ function HoundMob:create(x, y)
     table.insert(obj.behaviors, 1, MoveToAroundPlayer:new(obj, 0))
 
     -- Methods
+
+    function obj:specifyUpdate()
+        obj.directionSprite = -1
+        if GameScene.player.x > obj.x then
+            obj.directionSprite = 1
+        end
+    end
 
     -- Magic
 
