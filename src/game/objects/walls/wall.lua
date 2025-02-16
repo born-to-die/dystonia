@@ -1,4 +1,6 @@
 ---@class Wall
+---@field x number
+---@field y number
 ---@field worldX number
 ---@field worldY number
 ---@field health number

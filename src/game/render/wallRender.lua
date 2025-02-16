@@ -19,7 +19,7 @@ function WallRender:create()
       )
 
       if DEBUG_RENDER then
-        love.graphics.circle("fill", walls[i].pointX, walls[i].pointY, 2)
+        love.graphics.rectangle("line", walls[i].x, walls[i].y, GFX_TILE_SIZE_PX, GFX_TILE_SIZE_PX)
         love.graphics.print("health: " .. walls[i].health, walls[i].x, walls[i].y)
       end
     end

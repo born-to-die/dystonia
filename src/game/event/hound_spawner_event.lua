@@ -31,7 +31,6 @@ function HoundSpawnerEvent:create(
   end
 
   -- methods
-ss
   function obj.run()
 
     if obj.wasSpawned or GameScene.inGameTime < 100 then

@@ -63,13 +63,15 @@ function PlayerControl:create()
           end
 
           for i,wall in ipairs(GameScene.walls) do
-            local ic = CollisionChecker:isPointInCircle(
-              hitbox.x,
-              hitbox.y,
-              hitbox.radius,
-              wall.pointX,
-              wall.pointY
-            )
+            local ic = CollisionChecker:isCircleRectangleCollition(
+                    hitbox.x,
+                    hitbox.y,
+                    hitbox.radius,
+                    wall.x,
+                    wall.y,
+                    GFX_TILE_SIZE_PX,
+                    GFX_TILE_SIZE_PX
+                )
 
             if ic == true then
               wall:addDamage(player.damage)

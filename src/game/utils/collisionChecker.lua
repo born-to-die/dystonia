@@ -42,3 +42,21 @@ end
 function CollisionChecker:isPointInCircle(cx, cy, cr, px, py)
     return math.sqrt((cx - px)^2 + (cy - py)^2) <= cr
 end
+
+---@param cx number
+---@param cy number
+---@param radius number
+---@param rx number
+---@param ry number
+---@param rw number
+---@param rh number
+function CollisionChecker:isCircleRectangleCollition(cx, cy, radius, rx, ry, rw, rh)
+    local nearestX = math.max(rx, math.min(cx, rx + rw))
+    local nearestY = math.max(ry, math.min(cy, ry + rh))
+
+    local dx = cx - nearestX
+    local dy = cy - nearestY
+    local distanceSquared = dx * dx + dy * dy
+
+    return distanceSquared <= radius * radius
+end

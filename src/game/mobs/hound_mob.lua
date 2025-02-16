@@ -37,12 +37,14 @@ function HoundMob:create(x, y)
 
         if obj.inAttack == false then
             for i,wall in ipairs(GameScene.walls) do
-                local ic = CollisionChecker:isPointInCircle(
+                local ic = CollisionChecker:isCircleRectangleCollition(
                     hitbox.x,
                     hitbox.y,
                     hitbox.radius,
-                    wall.pointX,
-                    wall.pointY
+                    wall.x,
+                    wall.y,
+                    GFX_TILE_SIZE_PX,
+                    GFX_TILE_SIZE_PX
                 )
     
                 if ic == true then
