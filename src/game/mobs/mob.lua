@@ -9,6 +9,7 @@
 ---@field health number
 ---@field alive boolean
 ---@field inAttack boolean
+---@field isEating boolean
 ---@field foodSaturation number
 ---@field vector Vector
 ---@field attack function
@@ -51,6 +52,7 @@ function Mob:create(x, y)
     obj.alive = true
     obj.speed = Mob.SPEED_DEFAULT
     obj.health = 40
+    obj.isEating = true
     obj.foodSaturation = 100
 
     obj.vector = Vector:create(0, 0, obj.speed)
@@ -105,7 +107,9 @@ function Mob:create(x, y)
             end
         end
 
-        obj:foodSaturationUpdate()
+        if obj.isEating then
+            obj:foodSaturationUpdate()
+        end
 
         obj:specifyUpdate()
     end

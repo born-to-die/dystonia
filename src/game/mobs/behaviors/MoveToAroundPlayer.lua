@@ -1,10 +1,11 @@
 ---@class MoveToAroundPlayer : Behavior
----@field mapItems MapItem[]
+---@field distance number
 MoveToAroundPlayer = setmetatable({}, Behavior)
 MoveToAroundPlayer.__index = MoveToAroundPlayer
 
 ---@param mob Mob
-function MoveToAroundPlayer:new(mob)
+---@param distance number
+function MoveToAroundPlayer:new(mob, distance)
 
     local obj = {}
 
@@ -12,6 +13,7 @@ function MoveToAroundPlayer:new(mob)
     obj.mob = mob
     obj.move = false
     obj.distanceToPlayer = 0
+    obj.distance = distance
 
     obj.call = function ()
       obj:execute()
@@ -31,7 +33,9 @@ function MoveToAroundPlayer:canExecute()
 
   self.distanceToPlayer = MathService:distance(self.mob, GameScene.player)
 
-  if self.distanceToPlayer < 200  then
+  if self.distance == 0 then
+    return true
+  elseif self.distanceToPlayer < self.distance  then
     return true
   end
 
@@ -43,7 +47,7 @@ function MoveToAroundPlayer:execute()
 
   local isCloseToPlayer = self.distanceToPlayer < 50
 
-  local speed = self.mob.speed 
+  local speed = self.mob.speed
 
   if isCloseToPlayer then
     speed = 0

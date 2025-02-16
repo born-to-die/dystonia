@@ -83,6 +83,11 @@ function GameScene:load()
   table.insert(self.walls, Wall:create(1, 8, self.px, self.py, self.scaleX, self.scaleY))
   table.insert(self.walls, Wall:create(8, 8, self.px, self.py, self.scaleX, self.scaleY))
 
+  table.insert(self.mobs, HoundMob:create(
+    4 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + GFX_TILE_HALF_SIZE_PX,
+    4 * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + GFX_TILE_HALF_SIZE_PX
+  ))
+
   -- ITEMS
   table.insert(self.items, BeaconMapItem:create(0, 0))
   table.insert(self.items, BeaconMapItem:create(2, 2))
