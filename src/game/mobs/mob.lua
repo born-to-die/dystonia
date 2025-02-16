@@ -92,9 +92,33 @@ function Mob:create(x, y)
             if ic == true then
               GameScene.player.health = GameScene.player.health - obj.damage
               obj.inAttack = false
+              goto cont
+            end
+
+            for i,wall in ipairs(GameScene.walls) do
+                local ic = CollisionChecker:isPointInCircle(
+                    hitbox.x,
+                    hitbox.y,
+                    hitbox.radius,
+                    wall.pointX,
+                    wall.pointY
+                )
+    
+                if ic == true then
+                    wall:addDamage(obj.damage)
+    
+                    if wall.health <= 0 then
+                        table.remove(GameScene.walls, i)
+                    end
+    
+                    obj.inAttack = false
+                    goto cont
+                end
             end
         end
       end
+
+      ::cont::
 
       -- Attack cooldown time
       if obj.currentAttackCooldown > 0 then

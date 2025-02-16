@@ -32,6 +32,25 @@ function HoundMob:create(x, y)
         if GameScene.player.x > obj.x then
             obj.directionSprite = 1
         end
+
+        local hitbox = obj:getAttackHitbox()
+
+        if obj.inAttack == false then
+            for i,wall in ipairs(GameScene.walls) do
+                local ic = CollisionChecker:isPointInCircle(
+                    hitbox.x,
+                    hitbox.y,
+                    hitbox.radius,
+                    wall.pointX,
+                    wall.pointY
+                )
+    
+                if ic == true then
+                    obj.attack()
+                    return
+                end
+            end
+        end
     end
 
     -- Magic
