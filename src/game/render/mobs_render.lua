@@ -24,6 +24,10 @@ function MobsRender:create()
         mobs[i].sprite:getWidth() / 2, mobs[i].sprite:getHeight() / 2
       )
 
+      if (mobs[i].alive == false) then
+        love.graphics.setColor(1, 1, 1)
+      end
+
       if mobs[i].currentAttackCooldown > 0 then
         local hitbox = mobs[i]:getAttackHitbox()
 
