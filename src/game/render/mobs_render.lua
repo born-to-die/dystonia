@@ -26,6 +26,7 @@ function MobsRender:create()
 
       if (mobs[i].alive == false) then
         love.graphics.setColor(1, 1, 1)
+        goto continue
       end
 
       if mobs[i].currentAttackCooldown > 0 then
@@ -72,6 +73,8 @@ function MobsRender:create()
           hitbox.radius
         )
       end
+
+        ::continue::
     end
   end
   

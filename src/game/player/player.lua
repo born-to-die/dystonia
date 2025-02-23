@@ -36,6 +36,7 @@ function Player:create(worldX, worldY, px, py, scaleX, scaleY)
 
     -- Attacks properties
     obj.damage = 10
+    obj.attackRadius = 30
     obj.inAttack = false
     obj.attackCooldown = 0.5
     obj.currentAttackCooldown = 0
@@ -82,7 +83,7 @@ function Player:getAttackHitbox()
     local hitbox = {}
 
     hitbox.angle = math.atan2(my - self.y, mx - self.x)
-    hitbox.radius = 30
+    hitbox.radius = self.attackRadius
     hitbox.x = self.x + math.cos(hitbox.angle) * hitbox.radius
     hitbox.y = self.y + math.sin(hitbox.angle) * hitbox.radius
 

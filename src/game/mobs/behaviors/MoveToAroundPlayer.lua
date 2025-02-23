@@ -45,7 +45,7 @@ end
 
 function MoveToAroundPlayer:execute()
 
-  local isCloseToPlayer = self.distanceToPlayer < 50
+  local isCloseToPlayer = self.distanceToPlayer < 40
 
   local speed = self.mob.speed
 

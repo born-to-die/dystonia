@@ -39,6 +39,7 @@ function Mob:create(x, y)
 
     -- Attacks properties
     obj.damage = 10
+    obj.attackRadius = 20
     obj.inAttack = false
     obj.attackCooldown = 2
     obj.currentAttackCooldown = 0
@@ -212,7 +213,7 @@ function Mob:create(x, y)
         local ey = obj.y + obj.vector.y * (obj.speed)
     
         hitbox.angle = math.atan2(ey - obj.y, ex - obj.x)
-        hitbox.radius = 30
+        hitbox.radius = obj.attackRadius
         hitbox.x = obj.x + math.cos(hitbox.angle) * hitbox.radius
         hitbox.y = obj.y + math.sin(hitbox.angle) * hitbox.radius
     

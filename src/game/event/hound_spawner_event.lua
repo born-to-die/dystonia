@@ -19,6 +19,7 @@ function HoundSpawnerEvent:create(
   obj.interval = 30
   obj.chance = 1
   obj.wasSpawned = false
+  obj.wasSpawned2 = false
   obj.tileChecker = TileChecker:create()
 
   function obj.update()
@@ -33,10 +34,34 @@ function HoundSpawnerEvent:create(
   -- methods
   function obj.run()
 
-    if obj.wasSpawned or GameScene.inGameTime < 100 then
+    if obj.wasSpawned2 then
       return
     end
 
+    if GameScene.inGameTime < 100 then
+      return
+    end
+
+    if obj.wasSpawned then
+
+      for index, mob in ipairs(GameScene.mobs) do
+        if mob.name == "HoundMob" and mob.alive == true then
+          return
+        end
+      end
+
+      if GameScene.inGameTime < 150 then
+        return
+      end
+
+      obj:trySpawn(2)
+    else
+      obj:trySpawn(1)
+    end
+  end
+
+  ---@param numberSpawn number
+  function obj:trySpawn(numberSpawn)
     local wx = math.random(10) - 1
     local wy = math.random(10) - 1
 
@@ -54,7 +79,11 @@ function HoundSpawnerEvent:create(
       )
     )
 
-    obj.wasSpawned = true
+    if numberSpawn == 1 then
+      obj.wasSpawned = true
+    else 
+      obj.wasSpawned2 = true
+    end
   end
 
   setmetatable(obj, self)
