@@ -21,10 +21,8 @@ function CannedItem:create()
 
     ---@param player Player
     function obj:use(player)
-        player.foodSaturation = player.foodSaturation + 6
-        if (player.foodSaturation > 100) then
-            player.foodSaturation = 100
-        end
+        player:food(6)
+        player:heal(3)
     end
 
     -- Magic

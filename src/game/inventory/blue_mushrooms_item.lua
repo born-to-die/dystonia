@@ -19,6 +19,10 @@ function BlueMushroomsItem:create()
         return BlueMushroomMapItem:create(worldX, worldY)
     end
 
+    function obj:use(player)
+        player:heal(1)
+    end
+
     -- Magic
 
     setmetatable(obj, self)

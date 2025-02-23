@@ -44,7 +44,9 @@ function Player:create(worldX, worldY, px, py, scaleX, scaleY)
 
     -- Needle
     obj.health = 100
+    obj.healthMax = 100
     obj.foodSaturation = 100
+    obj.foodSaturationMax = 100
 
     -- Methods
 
@@ -58,6 +60,20 @@ function Player:create(worldX, worldY, px, py, scaleX, scaleY)
     self.__index = self
 
     return obj
+end
+
+---@param healPoints number
+function Player:heal(healPoints)
+    if self.health < self.healthMax then
+        self.health = self.health + healPoints
+    end
+end
+
+---@param foodPoints number
+function Player:food(foodPoints)
+    if self.foodSaturation < self.foodSaturationMax then
+        self.foodSaturation = self.foodSaturation + foodPoints
+    end
 end
 
 function Player:getAttackHitbox()
