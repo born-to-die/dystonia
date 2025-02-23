@@ -21,7 +21,7 @@ function SlimeItem:create()
 
     ---@param player Player
     function obj:use(player)
-        player.foodSaturation = player.foodSaturation + 10
+        player.foodSaturation = player.foodSaturation + 3
         if (player.foodSaturation > 100) then
             player.foodSaturation = 100
         end

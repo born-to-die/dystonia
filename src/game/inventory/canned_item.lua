@@ -21,7 +21,7 @@ function CannedItem:create()
 
     ---@param player Player
     function obj:use(player)
-        player.foodSaturation = player.foodSaturation + 100
+        player.foodSaturation = player.foodSaturation + 6
         if (player.foodSaturation > 100) then
             player.foodSaturation = 100
         end
