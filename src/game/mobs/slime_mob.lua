@@ -53,6 +53,15 @@ function SlimeMob:create(x, y)
         obj:spawnSlime()
     end
 
+    function obj:specifyDeathUpdate()
+        if obj.health < -40 then
+            local tx = math.floor((obj.x - GAME_SCENE.PX) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
+            local ty = math.floor((obj.y - GAME_SCENE.PY) / (GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE))
+            table.insert(GameScene.items, SlimeMapItem:create(tx, ty))
+            obj.toDel = true
+        end
+    end
+
     function obj:spawnSlime()
         if (obj.foodSaturation >= SlimeMob.FOOD_SATURATION_MAX) then
             local spawnTypeSlime = math.random(6)

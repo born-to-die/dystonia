@@ -164,6 +164,9 @@ function PlayerControl:create()
 
     elseif key == "f5" then
       DEBUG_RENDER = not DEBUG_RENDER
+
+    elseif key == "f11" then
+      love.window.setFullscreen(not love.window.getFullscreen())
   
     elseif key == "e" then
       for i = 1, #objects do

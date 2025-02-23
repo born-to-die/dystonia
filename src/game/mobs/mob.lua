@@ -56,6 +56,7 @@ function Mob:create(x, y)
     obj.health = 40
     obj.isEating = true
     obj.foodSaturation = 100
+    obj.toDel = false
 
     obj.vector = Vector:create(0, 0, obj.speed)
 
@@ -69,8 +70,14 @@ function Mob:create(x, y)
 
     function obj:update()
 
-        if obj.health <= 0 then
+        if obj.alive == false then
+            obj:deathUpdate()
+            return
+        end
+
+        if obj.health <= 0 and obj.alive == true then
             obj.alive = false
+            obj:die()
             return
         end
 
@@ -175,8 +182,12 @@ function Mob:create(x, y)
         end
     end
 
+    function obj:deathUpdate()
+        self:specifyDeathUpdate()
+    end
+
     function obj:die()
-        obj.sprite:setColor(0.5, 0.5, 0.5)
+        self:specifyDie()
     end
 
     ---@param x number
@@ -184,10 +195,6 @@ function Mob:create(x, y)
     function obj:setPosition(x, y)
         obj.x = x
         obj.y = y
-    end
-
-    function obj:specifyUpdate()
-        -- Special update for childs
     end
 
     function obj:attack()
@@ -210,6 +217,22 @@ function Mob:create(x, y)
         hitbox.y = obj.y + math.sin(hitbox.angle) * hitbox.radius
     
         return hitbox
+    end
+
+    -- Special method for child classes, 
+    -- called after update() the parent class
+    function obj:specifyUpdate()
+        -- Your events here
+    end
+
+    -- Special method for child classes, 
+    -- called after die() the parent class
+    function obj:specifyDie()
+        -- Your events here
+    end
+
+    function obj:specifyDeathUpdate()
+        -- TODO
     end
 
     -- Magic

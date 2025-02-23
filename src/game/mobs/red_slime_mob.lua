@@ -33,6 +33,12 @@ function RedSlimeMob:create(x, y)
         end
     end
 
+    function obj:specifyDeathUpdate()
+        if obj.health < -40 then
+            obj.toDel = true
+        end
+    end
+
     -- Magic
 
     setmetatable(obj, self)

@@ -130,11 +130,20 @@ function GameScene:update()
 
   for i = 1, #self.mobs do
 
-    if self.mobs[i].alive == false then
+    if self.mobs[i] == nil then
       goto continue
     end
 
     self.mobs[i]:update()
+
+    if self.mobs[i].toDel == true then
+      table.remove(self.mobs, i)
+      goto continue
+    end
+
+    if self.mobs[i].alive == false then
+      goto continue
+    end
 
     if (self.mobs[i].vector.x == 0 and self.mobs[i].vector.y == 0) then
       goto continue
