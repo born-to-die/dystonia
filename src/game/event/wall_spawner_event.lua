@@ -27,7 +27,15 @@ function WallSpawnerEvent:create(
     if not obj.timer.isExpired() then
       obj.timer.update(GameScene.DT)
     else
-      player.foodSaturation = player.foodSaturation - 1
+      if (player.foodSaturation > 0) then
+        player.foodSaturation = player.foodSaturation - 1
+      else 
+        if player.health > 0 then
+          player.health = player.health - 3
+        end
+      end
+
+      
       GameScene.inGameTime = GameScene.inGameTime + 1
       obj.timer = TIMER(obj.interval, obj.check)
     end
