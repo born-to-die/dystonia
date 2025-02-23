@@ -18,7 +18,8 @@ function HoundMob:create(x, y)
     -- Attributes
     obj.health = 60
     obj.speed = 200
-    obj.damage = 20
+    obj.damage = 36
+    obj.attackRadius = 20
     obj.isEating = false
 
     obj.vector = Vector:create(0, 0, obj.speed)
