@@ -159,8 +159,18 @@ function PlayerControl:create()
       inventory.selectedSlotNumber = inventory.selectedSlotNumber + 1
 
     elseif key == "x" then
-      table.insert(items, inventory.items[inventory.selectedSlotNumber]:getMapItem(player.worldX, player.worldY))
-      table.remove(inventory.items, inventory.selectedSlotNumber)
+      local item = inventory.items[inventory.selectedSlotNumber]
+
+      if item == nil then
+        return
+      end
+
+      local mapItem = item:getMapItem(player.worldX, player.worldY);
+
+      if (item) then
+        table.insert(items, mapItem)
+        table.remove(inventory.items, inventory.selectedSlotNumber)
+      end
 
     elseif key == "f5" then
       DEBUG_RENDER = not DEBUG_RENDER
