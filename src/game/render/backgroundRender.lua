@@ -68,8 +68,8 @@ function BackgroundRender:create()
     end
 
     for x = 0, 9 do
-        local px = x * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + GFX_TILE_HALF_SIZE_PX
-        local py = obj.updateRow * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + GFX_TILE_HALF_SIZE_PX
+        local px = x * GFX_TILE_SCALE_X + GameScene.PX_WITH_HALF_SIZE_TILE_X
+        local py = obj.updateRow * GFX_TILE_SCALE_Y + GameScene.PX_WITH_HALF_SIZE_TILE_Y
 
         BackgroundRender.visibleTiles[obj.updateRow] = BackgroundRender.visibleTiles[obj.updateRow] or {}
         
@@ -86,8 +86,8 @@ function BackgroundRender:create()
       BackgroundRender.visibleTiles[y] = {}
 
       for x = 0, 9 do
-        local px = x * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX
-        local py = y * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY
+        local px = x * GFX_TILE_SCALE_X + GameScene.PX
+        local py = y * GFX_TILE_SCALE_Y + GameScene.PY
 
         BackgroundRender.visibleTiles[y][x] = Raycast:isVisible(GameScene.player.x, GameScene.player.y, px, py, GameScene.walls)
       end
