@@ -9,6 +9,9 @@ GFX_DEFAULT_SCALE_IMAGE = 1
 GFX_DEFAULT_IMAGE_FILTER = "nearest"
 GFX_RESOLUTION_W = 1280
 GFX_RESOLUTION_H = 720
+GFX_TILE_SCALE_X = GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE
+GFX_TILE_SCALE_Y = GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE
+
 DEBUG_RENDER = true
 
 love.window.setTitle(WINDOW_TITLE)
@@ -67,6 +70,7 @@ require("src.game.render.wallRender")
 require("src.game.utils.collisionChecker")
 require("src.game.utils.math_service")
 require("src.game.utils.tile_checker")
+require("src.game.utils.raycast")
 require("src.scenes.scene")
 require("src.scenes.scene_game")
 require("src.utils.timer")

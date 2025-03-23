@@ -33,6 +33,15 @@ function CollisionChecker:isPointInRect(rect, point)
         and point.y <= rect.y + rect.h
 end
 
+---@param px number
+---@param py number
+---@param rect table
+---@return boolean
+function CollisionChecker:isXYInRect(px, py, rect)
+    return px >= rect.x and px <= rect.x + rect.w and
+           py >= rect.y and py <= rect.y + rect.h
+end
+
 ---@param cx number circle hitbox x
 ---@param cy number circle hitbox y
 ---@param cr number circle hitbox radius
