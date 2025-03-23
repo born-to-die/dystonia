@@ -21,9 +21,7 @@ function WallRender:create()
         goto continue
       end
 
-      local isVisible = BackgroundRender.visibleTiles[wallTileY][wallTileX]
-
-      if (isVisible == false) then
+      if (BackgroundRender.visibleTiles[wallTileY][wallTileX] == false) then
         goto continue
       end
 

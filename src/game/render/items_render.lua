@@ -8,6 +8,21 @@ function ItemsRender:create()
   function obj:render(mapItems)
     
     for i = 1, #mapItems do
+
+      local itemTileX = math.floor((mapItems[i].x - GameScene.PX) / GFX_TILE_SCALE_X)
+      local itemTileY = math.floor((mapItems[i].y - GameScene.PY) / GFX_TILE_SCALE_Y)
+
+      if
+        BackgroundRender.visibleTiles == nil 
+        or BackgroundRender.visibleTiles[itemTileY] == nil
+        then
+        goto continue
+      end
+
+      if (BackgroundRender.visibleTiles[itemTileY][itemTileX] == false) then
+        goto continue
+      end
+
       love.graphics.draw(
         mapItems[i].sprite,
         mapItems[i].x,
@@ -22,6 +37,8 @@ function ItemsRender:create()
         love.graphics.circle("fill", mapItems[i].x, mapItems[i].y, 2)
         love.graphics.setColor(1, 1, 1)
       end
+
+      ::continue::
     end
 
     if DEBUG_RENDER then

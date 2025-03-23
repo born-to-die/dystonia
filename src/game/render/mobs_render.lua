@@ -9,6 +9,20 @@ function MobsRender:create()
     
     for i = 1, #mobs do
 
+      local mobTileX = math.floor((mobs[i].x - GameScene.PX) / GFX_TILE_SCALE_X)
+      local mobTileY = math.floor((mobs[i].y - GameScene.PY) / GFX_TILE_SCALE_Y)
+
+      if
+        BackgroundRender.visibleTiles == nil 
+        or BackgroundRender.visibleTiles[mobTileY] == nil
+        then
+        goto continue
+      end
+
+      if (BackgroundRender.visibleTiles[mobTileY][mobTileX] == false) then
+        goto continue
+      end
+
       if (mobs[i].alive == false) then
         love.graphics.setColor(0.25, 0.25, 0.25)
       else 
