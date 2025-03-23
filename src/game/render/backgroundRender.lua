@@ -39,12 +39,32 @@ function BackgroundRender:create()
 
     for y = 0, 9, 1 do
         for x = 0, 9, 1 do
+
+            love.graphics.setColor(0.5, 0.5, 0.5)
+
             if BackgroundRender.visibleTiles[y][x] == false then
               goto continue
             end
 
             local px = x * GFX_TILE_SCALE_X + GameScene.PX
             local py = y * GFX_TILE_SCALE_Y + GameScene.PY
+
+            for _, object in pairs(GameScene.objects) do
+
+              if object.name ~= "beacon" then
+                goto continue3
+              end
+
+              local d = MathService:distance({x = px, y = py}, object)
+              if d < 100 then
+                love.graphics.setColor(1, 1, 1)
+                goto continue2
+              end
+
+              ::continue3::
+            end
+
+            ::continue2::
 
             love.graphics.draw(self.stoneFloorImage,
                 px, py,
@@ -59,6 +79,8 @@ function BackgroundRender:create()
             ::continue::
         end
     end
+
+    love.graphics.setColor(1, 1, 1)
   end
 
   function obj:updateVisibilityStep()
