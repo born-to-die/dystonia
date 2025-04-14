@@ -6,6 +6,7 @@
 ---@field health number
 Wall = {}
 
+---@return Wall
 function Wall:create(worldX, worldY, px, py, scaleX, scaleY)
 
     local obj = {}

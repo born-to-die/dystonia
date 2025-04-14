@@ -62,7 +62,7 @@ function WallSpawnerEvent:create(
       end
     end
 
-    table.insert(walls, Wall:create(wx, wy, GameScene.PX, GameScene.PY, GameScene.SX, GameScene.SY))
+    GameScene.wallsService:addWall(Wall:create(wx, wy, GameScene.PX, GameScene.PY, GameScene.SX, GameScene.SY))
   end
 
   setmetatable(obj, self)

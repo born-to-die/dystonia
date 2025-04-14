@@ -7,6 +7,7 @@
 ---@field mobs Mob[]
 ---@field items MapItem[]
 ---@field walls Wall[]
+---@field wallsService WallsService
 GameScene = {};
 
 Extended(GameScene, Scene)
@@ -39,6 +40,8 @@ GameScene.inventory = Inventory:create()
 GameScene.inGameTime = 0
 
 GameScene.mathService = MathService:create()
+
+GameScene.wallsService = WallsService:create()
 
 GameScene.MAP_RIGHT_BORDER = GameScene.PX + 10 * GFX_TILE_SIZE_PX - GFX_TILE_SIZE_PX / 2
 GameScene.MAP_LEFT_BORDER = GameScene.PX + GFX_TILE_SIZE_PX / 2
@@ -76,14 +79,15 @@ function GameScene:load()
   self.spawnEvent = SpawnEvent:create()
   self.spawnEvent.init(self.walls, self.player, self.objects)
 
-  table.insert(self.walls, Wall:create(3, 3, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(6, 3, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(3, 6, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(6, 6, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(1, 1, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(8, 1, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(1, 8, self.px, self.py, self.scaleX, self.scaleY))
-  table.insert(self.walls, Wall:create(8, 8, self.px, self.py, self.scaleX, self.scaleY))
+  self.wallsService:addWall(Wall:create(3, 3, self.px, self.py, self.scaleX, self.scaleY))
+  self.wallsService:addWall(Wall:create(6, 3, self.px, self.py, self.scaleX, self.scaleY))
+  self.wallsService:addWall(Wall:create(3, 6, self.px, self.py, self.scaleX, self.scaleY))
+  self.wallsService:addWall(Wall:create(6, 6, self.px, self.py, self.scaleX, self.scaleY))
+  self.wallsService:addWall(Wall:create(1, 1, self.px, self.py, self.scaleX, self.scaleY))
+  self.wallsService:addWall(Wall:create(8, 1, self.px, self.py, self.scaleX, self.scaleY))
+  self.wallsService:addWall(Wall:create(1, 8, self.px, self.py, self.scaleX, self.scaleY))
+  self.wallsService:addWall(Wall:create(8, 8, self.px, self.py, self.scaleX, self.scaleY))
+  self.wallsService:addWall(Wall:create(6, 3, self.px, self.py, self.scaleX, self.scaleY))
 
   -- ITEMS
   table.insert(self.items, BeaconMapItem:create(0, 0))

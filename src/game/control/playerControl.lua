@@ -76,7 +76,7 @@ function PlayerControl:create()
             if ic == true then
               wall:addDamage(player.damage)
               if wall.health <= 0 then
-                table.remove(GameScene.walls, i)
+                GameScene.wallsService:deleteWall(wall, i)
               end
               player.inAttack = false
               return
