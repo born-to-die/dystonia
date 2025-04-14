@@ -30,13 +30,20 @@ end
 ---@return nil
 function WallsService:addWall(wall)
     table.insert(GameScene.walls, wall)
-    WallsService.tailMap[wall.worldX + 1][wall.worldY + 1] = 1
+    WallsService.tailMap[wall.worldY + 1][wall.worldX + 1] = 1
 end
 
 ---@param wall Wall
 ---@param index integer
 ---@return nil
 function WallsService:deleteWall(wall, index)
-  table.remove(GameScene.walls, index)
-  WallsService.tailMap[wall.worldX][wall.worldY] = 0
+    table.remove(GameScene.walls, index)
+    WallsService.tailMap[wall.worldY + 1][wall.worldX + 1] = 0
+end
+
+---@param x integer
+---@param y integer
+---@return boolean
+function WallsService:isWall(x, y)
+    return WallsService.tailMap[y + 1] and WallsService.tailMap[y + 1][x + 1] == 1
 end

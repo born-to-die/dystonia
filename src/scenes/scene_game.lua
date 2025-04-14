@@ -52,6 +52,11 @@ GameScene.FONT_DEFAULT = love.graphics.newFont(12)
 GameScene.FONT_SUB_MEDIUM = love.graphics.newFont(18)
 GameScene.FONT_MEDIUM = love.graphics.newFont(24)
 
+-- FIELD OF VIEW SETTINGS
+GameScene.FOV_DEFAULT_STEPS = 72
+GameScene.FOV_DEFAULT_RADIUS = 8
+GameScene.FOV_DEFAULT_RAY_DIRECTIONS = {}
+
 function GameScene:load()
 
   math.randomseed(os.time())
@@ -103,6 +108,15 @@ function GameScene:load()
   table.insert(self.events, MushroomsSpawnerEvent:create(self.walls, self.player, self.objects, self.items))
   table.insert(self.events, SlimeSpawnerEvent:create(self.walls, self.player, self.objects, self.items, self.mobs))
   table.insert(self.events, HoundSpawnerEvent:create(self.walls, self.player, self.objects, self.items))
+
+  -- FOV
+  for i = 0, GameScene.FOV_DEFAULT_STEPS - 1 do
+    local angle = (2 * math.pi) * (i / GameScene.FOV_DEFAULT_STEPS)
+    table.insert(
+      GameScene.FOV_DEFAULT_RAY_DIRECTIONS,
+      { dx = math.cos(angle), dy = math.sin(angle) }
+    )
+  end
 end
 
 function GameScene:update()

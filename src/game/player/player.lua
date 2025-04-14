@@ -1,6 +1,6 @@
 ---@class Player
----@field worldX number
----@field worldY number
+---@field worldX integer
+---@field worldY integer
 ---@field x number
 ---@field y number
 ---@field speed number

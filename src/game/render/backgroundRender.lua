@@ -27,14 +27,9 @@ function BackgroundRender:create()
     local playerY = GameScene.player.worldY
 
     if obj.playerTileX ~= playerX or obj.playerTileY ~= playerY then
-        obj.isVisibilityProgress = true
-        obj.updateRow = 0
         obj.playerTileX = playerX
         obj.playerTileY = playerY
-    end
-
-    if obj.isVisibilityProgress then
-      obj:updateVisibilityStep()
+        obj:updateAllVisibility()
     end
 
     for y = 0, 9, 1 do
@@ -42,7 +37,11 @@ function BackgroundRender:create()
 
             love.graphics.setColor(0.5, 0.5, 0.5)
 
-            if BackgroundRender.visibleTiles[y][x] == false then
+            if
+              BackgroundRender.visibleTiles[y] == nil
+              or BackgroundRender.visibleTiles[y][x] == nil
+              or BackgroundRender.visibleTiles[y][x] == false
+            then
               goto continue
             end
 
@@ -83,36 +82,32 @@ function BackgroundRender:create()
     love.graphics.setColor(1, 1, 1)
   end
 
-  function obj:updateVisibilityStep()
-    if obj.updateRow >= obj.totalRows then
-      obj.isVisibilityProgress = false
-      return
-    end
-
-    for x = 0, 9 do
-        local px = x * GFX_TILE_SCALE_X + GameScene.PX_WITH_HALF_SIZE_TILE_X
-        local py = obj.updateRow * GFX_TILE_SCALE_Y + GameScene.PX_WITH_HALF_SIZE_TILE_Y
-
-        BackgroundRender.visibleTiles[obj.updateRow] = BackgroundRender.visibleTiles[obj.updateRow] or {}
-        
-        BackgroundRender.visibleTiles[obj.updateRow][x] = Raycast:isVisible(GameScene.player.x, GameScene.player.y, px, py, GameScene.walls)
-    end
-
-    obj.updateRow = obj.updateRow + 1
-  end
-
   function obj:updateAllVisibility()
+
     BackgroundRender.visibleTiles = {}
 
-    for y = 0, 9 do
-      BackgroundRender.visibleTiles[y] = {}
+    for _, dir in ipairs(GameScene.FOV_DEFAULT_RAY_DIRECTIONS) do
 
-      for x = 0, 9 do
-        local px = x * GFX_TILE_SCALE_X + GameScene.PX
-        local py = y * GFX_TILE_SCALE_Y + GameScene.PY
+        local px, py = GameScene.player.worldX, GameScene.player.worldY
 
-        BackgroundRender.visibleTiles[y][x] = Raycast:isVisible(GameScene.player.x, GameScene.player.y, px, py, GameScene.walls)
-      end
+        for i = 1, GameScene.FOV_DEFAULT_RADIUS do
+            px = px + dir.dx * 0.5
+            py = py + dir.dy * 0.5
+
+            local tx = math.floor(px)
+            local ty = math.floor(py)
+
+            BackgroundRender.visibleTiles[ty] = BackgroundRender.visibleTiles[ty] or {}
+            BackgroundRender.visibleTiles[ty][tx] = true
+
+            love.graphics.circle("fill", ty * 64 + GameScene.PX, ty * 64 + GameScene.PY, 2)
+
+            if GameScene.wallsService:isWall(tx, ty) then
+                goto nextRay
+            end
+        end
+
+        ::nextRay::
     end
   end
 
