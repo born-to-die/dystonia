@@ -2,6 +2,9 @@
 ---@field name string
 ---@field x number
 ---@field y number
+---@field worldX integer
+---@field worldY integer
+---@field sprite table
 ---@field deleted boolean
 MapItem = {}
 

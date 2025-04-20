@@ -9,32 +9,22 @@ function ObjectsRender:create()
 
   -- @param objects Object[]
   function obj:render(objects)
+    local visibleTiles = BackgroundRender.visibleTiles
+    local sx, sy = GameScene.SX, GameScene.SY
+    
+    for i = 1, #objects do
+      local object = objects[i]
 
-    for _, object in pairs(objects) do
+      local row = visibleTiles[object.worldY]
 
-      local objectTileX = math.floor((object.x - GameScene.PX) / GFX_TILE_SCALE_X)
-      local objectTileY = math.floor((object.y - GameScene.PY) / GFX_TILE_SCALE_Y)
-
-      if
-        BackgroundRender.visibleTiles == nil 
-        or BackgroundRender.visibleTiles[objectTileY] == nil
-        then
-        goto continue
+      if row and row[object.worldX] then
+        love.graphics.draw(
+          object.sprite,
+          object.x, object.y,
+          0,
+          sx, sy
+        )
       end
-
-      if (BackgroundRender.visibleTiles[objectTileY][objectTileX] == false) then
-        goto continue
-      end
-
-      love.graphics.draw(
-        object.sprite,
-        object.x,
-        object.y,
-        0,
-        GameScene.SX, GameScene.SY
-    )
-
-    ::continue::
     end
   end
   

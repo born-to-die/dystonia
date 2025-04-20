@@ -4,47 +4,29 @@ function WallRender:create()
   
   local obj = {}
 
-  -- @param walls table Array with Wall classes
-  -- @param sx float Scale X
-  -- @param sy float Scale Y
+  ---@param walls Wall[]
   function obj:render(walls, sx, sy)
-    
+    local visibleTiles = BackgroundRender.visibleTiles
+    local px, py = GameScene.PX, GameScene.PY
+    local tileSizeX, tileSizeY = GFX_TILE_SCALE_X, GFX_TILE_SCALE_Y
+    local tilePx = GFX_TILE_SIZE_PX
+    local debugRender = DEBUG_RENDER
+
     for i = 1, #walls do
-      
-      local wallTileX = math.floor((walls[i].x - GameScene.PX) / GFX_TILE_SCALE_X)
-      local wallTileY = math.floor((walls[i].y - GameScene.PY) / GFX_TILE_SCALE_Y)
+      local wall = walls[i]
 
-      if
-        BackgroundRender.visibleTiles == nil 
-        or BackgroundRender.visibleTiles[wallTileY] == nil
-        then
-        goto continue
+      local row = visibleTiles[wall.worldY]
+
+      if row and row[wall.worldX] then
+        love.graphics.draw(wall.sprite, wall.x, wall.y, 0, sx, sy)
+
+        if debugRender then
+          love.graphics.rectangle("line", wall.x, wall.y, tilePx, tilePx)
+          love.graphics.print("health: " .. wall.health, wall.x, wall.y)
+          love.graphics.print("Walls: " .. #walls, 0, 45)
+        end
       end
-
-      if (BackgroundRender.visibleTiles[wallTileY][wallTileX] == false) then
-        goto continue
-      end
-
-      love.graphics.draw(
-        walls[i].sprite,
-        walls[i].x,
-        walls[i].y,
-        0,
-        sx, sy
-      )
-
-      if DEBUG_RENDER then
-        love.graphics.rectangle("line", walls[i].x, walls[i].y, GFX_TILE_SIZE_PX, GFX_TILE_SIZE_PX)
-        love.graphics.print("health: " .. walls[i].health, walls[i].x, walls[i].y)
-      end
-
-        ::continue::
     end
-
-    if DEBUG_RENDER then
-      love.graphics.print("Walls: " .. #walls, 0, 45)
-    end
-
   end
 
   setmetatable(obj, self)
