@@ -10,11 +10,16 @@ Bfs.__index = Bfs
 ---@return Vector
 function Bfs:findPath(startX, startY, goalX, goalY, mob)
     local width, height = GameScene.MAP_TILES_X, GameScene.MAP_TILES_Y
+    local tileSizePX = GFX_TILE_SIZE_PX
+    local halfTileSizePX = GFX_TILE_HALF_SIZE_PX
+    local px = GameScene.PX
+    local py = GameScene.PY
+    local tileMap = GameScene.wallsService.tailMap;
+
     local visited = {}
     local cameFrom = {}
-    local queue = {}
+    local queue = {{x = startX, y = startY}}
 
-    table.insert(queue, {x = startX, y = startY})
     visited[startY * width + startX] = true
 
     local directions = {
@@ -42,7 +47,11 @@ function Bfs:findPath(startX, startY, goalX, goalY, mob)
 
             if #path > 0 then
                 local next = path[2] or path[1]
-                return Vector:create(next.x - startX, next.y - startY, mob.speed)
+
+                local tx = next.x * tileSizePX + px + halfTileSizePX
+                local ty = next.y * tileSizePX + py + halfTileSizePX
+
+                return Vector:create(tx - mob.x, ty - mob.y, mob.speed)
             end
             return Vector:create(0, 0, 0)
         end
@@ -57,8 +66,8 @@ function Bfs:findPath(startX, startY, goalX, goalY, mob)
                 and nx < width
                 and ny >= 0
                 and ny < height
-                and GameScene.wallsService.tailMap[ny + 1]
-                and GameScene.wallsService.tailMap[ny + 1][nx + 1] == 0
+                and tileMap[ny + 1]
+                and tileMap[ny + 1][nx + 1] == 0
                 and not visited[index]
             then
                 visited[index] = true
