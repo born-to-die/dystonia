@@ -19,6 +19,8 @@ GameScene.PY = GFX_TILE_SIZE_PX / 2 * GameScene.SY -- padding on x axis
 GameScene.DT = 0 -- delta time
 GameScene.PX_WITH_HALF_SIZE_TILE_X = GameScene.PX + GFX_TILE_HALF_SIZE_PX
 GameScene.PX_WITH_HALF_SIZE_TILE_Y = GameScene.PY + GFX_TILE_HALF_SIZE_PX
+GameScene.MAP_TILES_X = 10
+GameScene.MAP_TILES_Y = 10
 
 GameScene.PI = math.pi
 GameScene.PI_HALF = GameScene.PI / 2

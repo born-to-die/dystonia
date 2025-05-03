@@ -21,7 +21,10 @@ function MobsRender:create()
 
       local row = visibleTiles[wallTileY]
 
-      if row and row[wallTileX] then
+      if
+        (row and row[wallTileX])
+        or DEBUG_RENDER
+      then
         if (mob.alive == false) then
           love.graphics.setColor(0.25, 0.25, 0.25)
         else 

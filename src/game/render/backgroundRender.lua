@@ -100,8 +100,6 @@ function BackgroundRender:create()
             BackgroundRender.visibleTiles[ty] = BackgroundRender.visibleTiles[ty] or {}
             BackgroundRender.visibleTiles[ty][tx] = true
 
-            love.graphics.circle("fill", ty * 64 + GameScene.PX, ty * 64 + GameScene.PY, 2)
-
             if GameScene.wallsService:isWall(tx, ty) then
                 goto nextRay
             end
