@@ -7,8 +7,9 @@ function RedSlimeMob:create(x, y)
 
     local obj = SlimeMob:create(x, y)
 
-    -- table.insert(obj.behaviors, 1, MoveToAroundPlayer:new(obj, 200))
-    table.insert(obj.behaviors, 1, MoveToPlayer:new(obj))
+    table.insert(obj.behaviors, 1, MoveToAroundPlayer:new(obj, 200))
+    table.insert(obj.behaviors, 2, MoveToAroundItem:new(obj, GameScene.items))
+    table.insert(obj.behaviors, 3, MoveRandomly:new(obj))
 
     -- Properties
 

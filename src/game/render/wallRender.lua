@@ -24,6 +24,7 @@ function WallRender:create()
           love.graphics.rectangle("line", wall.x, wall.y, tilePx, tilePx)
           love.graphics.print("health: " .. wall.health, wall.x, wall.y)
           love.graphics.print("Walls: " .. #walls, 0, 45)
+          love.graphics.print("Mobs: " .. #GameScene.mobs, 0, 75)
         end
       end
     end

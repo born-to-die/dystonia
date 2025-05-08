@@ -1,4 +1,4 @@
----@class Raycast
+---@class Raycast by pixels
 Raycast = {}
 
 function Raycast:create()

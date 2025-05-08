@@ -176,7 +176,7 @@ function PlayerControl:create()
       DEBUG_RENDER = not DEBUG_RENDER
 
     elseif key == "f9" then
-      table.insert(GameScene.mobs, RedSlimeMob:create(player.x + 128, player.y + 128))
+      table.insert(GameScene.mobs, SlimeMob:create(player.x + 128, player.y + 128))
 
     elseif key == "f11" then
       love.window.setFullscreen(not love.window.getFullscreen())

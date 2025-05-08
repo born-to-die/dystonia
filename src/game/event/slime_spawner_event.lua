@@ -55,7 +55,7 @@ function SlimeSpawnerEvent:create(
 
     table.insert(
       GameScene.mobs,
-      RedSlimeMob:create(
+      SlimeMob:create(
         wx * GFX_TILE_SIZE_PX * GameScene.SX + GameScene.PX + 32,
         wy * GFX_TILE_SIZE_PX * GameScene.SY + GameScene.PY + 32
       )

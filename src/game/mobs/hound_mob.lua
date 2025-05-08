@@ -24,7 +24,7 @@ function HoundMob:create(x, y)
 
     obj.vector = Vector:create(0, 0, obj.speed)
 
-    table.insert(obj.behaviors, 1, MoveToAroundPlayer:new(obj, 0))
+    table.insert(obj.behaviors, 1, MoveToPlayer:new(obj))
 
     -- Methods
 
