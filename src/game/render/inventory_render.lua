@@ -1,5 +1,7 @@
 InventoryRender = {}
 
+InventoryRender.TEMP_BAR_COLOR = {42 / 255, 129 / 255, 131 / 255, 1}
+
 function InventoryRender:create()
   
   local obj = {}
@@ -11,7 +13,9 @@ function InventoryRender:create()
   ---@param inventory Inventory
   function obj:render(inventory)
 
-    InventoryRender:renderKeys()
+    InventoryRender:debugRenderKeys()
+
+    InventoryRender:renderUIBars()
     
     local items = inventory.getAll()
 
@@ -73,7 +77,19 @@ function InventoryRender:create()
 end
 
 ---@private
-function InventoryRender:renderKeys()
+function InventoryRender:renderUIBars()
+  -- Health bar
+  love.graphics.setColor(InventoryRender.TEMP_BAR_COLOR)
+  love.graphics.rectangle('fill', 64, 252, GameScene.player.temperatureLimit * 164 / 100, 24)
+  love.graphics.rectangle('line', 62, 250, 169, 29)
+  love.graphics.setColor(PlayerRender.FONT_DEFAULT_COLOR)
+  love.graphics.setFont(GameScene.FONT_SUB_MEDIUM)
+  love.graphics.print("TEMP: " .. GameScene.mapTemperature .. "°", 68, 254)
+  love.graphics.setFont(GameScene.FONT_DEFAULT)
+end
+
+---@private
+function InventoryRender:debugRenderKeys()
     love.graphics.setFont(GameScene.FONT_SUB_MEDIUM)
     love.graphics.printf("Movement: WASD", 32, 500, 200, "left")
     love.graphics.printf("Attack: LMB", 32, 525, 200, "left")

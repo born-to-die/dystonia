@@ -35,6 +35,16 @@ function WallSpawnerEvent:create(
         end
       end
 
+      if GameScene.mapTemperature < 0 then
+        if (player.temperatureLimit > 0) then
+          player.temperatureLimit = player.temperatureLimit + GameScene.mapTemperature / 15
+        else 
+          if player.health > 0 then
+            player.health = player.health - 1
+          end
+        end
+      end
+
       
       GameScene.inGameTime = GameScene.inGameTime + 1
       obj.timer = TIMER(obj.interval, obj.check)

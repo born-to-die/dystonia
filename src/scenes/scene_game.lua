@@ -61,6 +61,8 @@ GameScene.FOV_DEFAULT_RAY_DIRECTIONS = {}
 
 GameScene.SPAWN_MODE = false
 
+GameScene.mapTemperature = -10
+
 function GameScene:load()
 
   math.randomseed(os.time())

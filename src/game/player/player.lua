@@ -16,6 +16,9 @@
 ---@field inAttack boolean
 Player = {}
 
+Player.temperatureLimit = 100
+Player.temperatureLimitMax = 100
+
 function Player:create(worldX, worldY, px, py, scaleX, scaleY)
 
     local obj = {}
