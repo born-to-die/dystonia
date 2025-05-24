@@ -10,6 +10,8 @@ function InventoryRender:create()
 
   ---@param inventory Inventory
   function obj:render(inventory)
+
+    InventoryRender:renderKeys()
     
     local items = inventory.getAll()
 
@@ -68,4 +70,16 @@ function InventoryRender:create()
     self.__index = self
 
     return obj
+end
+
+---@private
+function InventoryRender:renderKeys()
+    love.graphics.setFont(GameScene.FONT_SUB_MEDIUM)
+    love.graphics.printf("Movement: WASD", 32, 500, 200, "left")
+    love.graphics.printf("Attack: LMB", 32, 525, 200, "left")
+    love.graphics.printf("Use item: E", 32, 550, 200, "left")
+    love.graphics.printf("Drop item: X", 32, 575, 200, "left")
+    love.graphics.printf("Debug mode: F5", 32, 600, 200, "left")
+    love.graphics.printf("Spawn mode: F6, PgUp, PgDn, MMB", 32, 625, 400, "left")
+    love.graphics.setFont(GameScene.FONT_DEFAULT)
 end
