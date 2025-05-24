@@ -175,12 +175,21 @@ function PlayerControl:create()
     elseif key == "f5" then
       DEBUG_RENDER = not DEBUG_RENDER
 
+    elseif key == "f6" then
+      GameScene.SPAWN_MODE = not GameScene.SPAWN_MODE
+
     elseif key == "f9" then
       table.insert(GameScene.mobs, HoundMob:create(player.x + 128, player.y + 128))
 
     elseif key == "f11" then
       love.window.setFullscreen(not love.window.getFullscreen())
-  
+
+    elseif key == "pageup" then
+      SpawnModeService:moveIndex(true)
+
+    elseif key == "pagedown" then
+      SpawnModeService:moveIndex(false)
+
     elseif key == "e" then
       for i = 1, #objects do
 
@@ -240,6 +249,11 @@ function PlayerControl:create()
           object:activate(items)
           table.remove(GameScene.objects, i)
         end
+      end
+    elseif button == 3 then
+      if GameScene.SPAWN_MODE then
+        local x, y = love.mouse.getPosition()
+        SpawnModeService:spawn(x, y)
       end
     end
   end

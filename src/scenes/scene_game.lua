@@ -59,6 +59,8 @@ GameScene.FOV_DEFAULT_STEPS = 72
 GameScene.FOV_DEFAULT_RADIUS = 8
 GameScene.FOV_DEFAULT_RAY_DIRECTIONS = {}
 
+GameScene.SPAWN_MODE = false
+
 function GameScene:load()
 
   math.randomseed(os.time())
@@ -217,6 +219,8 @@ function GameScene:render()
     self.wallRender:render(self.walls, self.scaleX, self.scaleY)
 
     self.inventoryRender:render(self.inventory)
+
+    if GameScene.SPAWN_MODE then SpawnModeRender:render() end
 end
 
 function GameScene:keypressed(key)

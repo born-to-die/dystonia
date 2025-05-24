@@ -12,7 +12,7 @@ GFX_RESOLUTION_H = 720
 GFX_TILE_SCALE_X = GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE
 GFX_TILE_SCALE_Y = GFX_TILE_SIZE_PX * GFX_DEFAULT_SCALE_IMAGE
 
-DEBUG_RENDER = true
+DEBUG_RENDER = false
 
 love.window.setTitle(WINDOW_TITLE)
 
@@ -37,6 +37,11 @@ require("src.game.event.slime_spawner_event")
 require("src.game.event.hound_spawner_event")
 require("src.game.inventory.inventory")
 require("src.game.inventory.inventory_item")
+require("src.game.inventory.beacon_item")
+require("src.game.inventory.canned_item")
+require("src.game.inventory.inventory_item_type")
+require("src.game.inventory.blue_mushrooms_item")
+require("src.game.inventory.slime_item")
 require("src.game.mobs.behaviors.behavior")
 require("src.game.mobs.behaviors.MoveRandomlyBehavior")
 require("src.game.mobs.behaviors.MoveToAroundItemBehavior")
@@ -46,11 +51,6 @@ require("src.game.mobs.mob")
 require("src.game.mobs.red_slime_mob")
 require("src.game.mobs.slime_mob")
 require("src.game.mobs.hound_mob")
-require("src.game.inventory.beacon_item")
-require("src.game.inventory.canned_item")
-require("src.game.inventory.inventory_item_type")
-require("src.game.inventory.blue_mushrooms_item")
-require("src.game.inventory.slime_item")
 require("src.game.objects.items.beacon_map_item")
 require("src.game.objects.items.canned_map_item")
 require("src.game.objects.items.blue_mushroom_map_item")
@@ -66,8 +66,10 @@ require("src.game.render.inventory_render")
 require("src.game.render.items_render")
 require("src.game.render.mobs_render")
 require("src.game.render.objects_render")
+require("src.game.render.spawn_mode_render")
 require("src.game.render.playerRender")
 require("src.game.render.wallRender")
+require("src.game.services.spawn_mode_service")
 require("src.game.utils.bfs")
 require("src.game.utils.collisionChecker")
 require("src.game.utils.math_service")
